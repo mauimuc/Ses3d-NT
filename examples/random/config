@@ -1,0 +1,66 @@
+
+&grid
+    nx  = 36
+    ny  = 36
+    nz  = 18
+    lpd = 5
+    taper_width = 6
+    taper_slope = 0.8
+/
+
+
+&model
+    lat_min = -6.0, lat_max = 6.0,
+    lon_min = -6.0, lon_max = 6.0,
+    rad_min = 5171000.0, rad_max = 6371000.0,
+    rhoinv = './rhoinv'
+    lambda = './lambda'
+    mu     = './mu'
+/
+
+
+&time
+    dt = 0.25
+    nt = 1000
+/
+
+
+&general
+    workflow     = 'forward'    ! defined in main program max 16 chars
+    log_file_dir = './'
+/
+
+
+&source_mt
+    lat = 3.0
+    lon = 3.0
+    depth = 30000.0
+    wavelet = 'RICKER', width = 50.0, onset = 100.0
+    ! M_xx M_xy M_xz M_yy M_yz M_zz
+    moment_tensor = 0.0 0.0 1.0e19 0.0 0.0 0.0
+/
+
+&output_raw
+    timestep_start = 1
+    timestep_end = 1
+    timestep_increment = 1
+    attributes = "rho" "lambda" "mu"
+    !override = T
+/
+
+!&output_netcdf
+!    timestep_start = 400
+!    timestep_increment = 20
+!    attributes = "vx" "vy" "vz"
+!    override = T
+!/
+
+&receiver
+    lat = 3.0
+    lon = 3.0
+    depth = 30000.0
+    station = "source"
+    attributes = "mxz" 
+    override = T
+/
+

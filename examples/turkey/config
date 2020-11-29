@@ -1,0 +1,1665 @@
+! Ses3d-NT configuration file
+
+! Parameters specifying the global grid
+&grid
+    nx  = 70
+    ny  = 113
+    nz  = 33
+    lpd = 4
+    taper_width = 3
+    taper_slope = 1.2
+/
+
+! Model extents and parameters
+&model
+    lat_min = 34.1, lat_max = 42.9, ! Lateral extents
+    lon_min = 23.1, lon_max = 42.9, ! Longitudinal extents
+    rad_min = 5900000.0, rad_max = 6371000.0, ! Radial extents
+    model_type = 3 ! Model_type=3 means PREM
+/
+
+! Time-Marching parameters
+&time
+    dt = 0.13 ! Time increment
+    nt = 2000 ! Number  of time-steps
+    ! optional: yyyy, mm, dd, dm_GMT, h,  m, s, ms
+    date_time = 2007,  8, 27,      0,22, 06, 0,  0 ! Optional, event time
+/
+
+! General parameters
+&general
+    ! Implemented workflows are: forward, inverse, model
+    workflow     = 'forward'    ! defined in main program max 16 chars
+    event_name   = 'turkey'     ! optional max 16 chars
+    log_file_dir = './log/'     ! optional filename is either 'logfile_*.log' or "event_name_*.log"
+/
+
+
+&source_mt
+    lat = 39.26
+    lon = 41.04
+    depth = 5000.0
+    wavelet = './filtered_hsf_8s.stf'
+    ! M_xx M_xy M_xz M_yy M_yz M_zz
+    moment_tensor = 1.0e16 1.0e16 1.0e16 0.0 0.0 0.0
+/
+
+! Write model-parameters in netCDF file format
+ &output_netcdf
+     timestep_start = 1
+     timestep_increment = 1
+     timestep_end = 1
+     attributes = 'rho' 'mu' 'lambda'
+     prefix = './'
+ /
+
+! Write displacement-velocity field in netCDF file format every 5th timestep
+&output_netcdf
+     timestep_start = 10
+     timestep_increment = 5
+     attributes = 'vx' 'vy' 'vz'
+     prefix = './'
+/
+
+&receiver
+  station='ADVT', network='KO'
+  lat=40.4332, lon=29.7383, depth=0.0,
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='AFSR', network='KO',
+  lat=39.4468, lon=33.0707, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='AGRB', network='KO',
+  lat=39.5755, lon=42.992, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='AKAS', network='TU',
+  lat=36.2327, lon=29.6052, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='AKCD', network='TU',
+  lat=38.2956, lon=37.9224, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='AKHS', network='TU',
+  lat=38.8788, lon=27.8138, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='AKO', network='TU',
+  lat=37.4615, lon=35.446, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='ALIC', network='YL',
+  lat=40.978, lon=33.487, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='ALIN', network='YL',
+  lat=41.061, lon=32.879, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='ALOR', network='YL',
+  lat=41.301, lon=32.87, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='ALT', network='KO',
+  lat=39.0552, lon=30.1103, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='ALT', network='TU',
+  lat=41.088, lon=28.74, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='ANA01', network='TU',
+  lat=39.8137, lon=30.5284, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='ANA02', network='TU',
+  lat=39.7893, lon=30.4973, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='ANA03', network='TU',
+  lat=39.8801, lon=30.4534, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='ANA04', network='TU',
+  lat=39.7733, lon=30.5101, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='ANDN', network='TU',
+  lat=37.58, lon=36.3453, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='ANTB', network='KO',
+  lat=36.8998, lon=30.6538, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='ANTO', network='IU',
+  lat=39.8689, lon=32.7936, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='APE', network='GE',
+  lat=37.07, lon=25.53, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='ARMT', network='KO',
+  lat=40.5683, lon=28.866, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='ARSL', network='YL',
+  lat=40.955, lon=35.887, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='ARTV', network='TU',
+  lat=41.1849, lon=41.9283, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='ATAB', network='TU',
+  lat=37.4696, lon=38.2949, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='ATI', network='TU',
+  lat=40.1383, lon=27.6533, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='AUBOZ', network='TU',
+  lat=39.9107, lon=30.0325, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='AUKIR', network='TU',
+  lat=39.2872, lon=30.5308, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='AUKUT', network='TU',
+  lat=39.3955, lon=30.0213, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='AUMIH', network='TU',
+  lat=39.8679, lon=31.4832, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='AUSIV', network='TU',
+  lat=39.4396, lon=31.5397, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='AVNT', network='TU',
+  lat=38.7784, lon=34.8523, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='AYDB', network='KO',
+  lat=37.9467, lon=27.8908, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='AYDN', network='TU',
+  lat=37.6608, lon=27.8792, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='AYK', network='TU',
+  lat=37.4144, lon=36.8067, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='AYVA', network='TU',
+  lat=39.3083, lon=26.6903, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='BAG', network='TU',
+  lat=38.6554, lon=26.8519, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='BAGB', network='YL',
+  lat=40.278, lon=36.41, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='BALA', network='TU',
+  lat=39.5561, lon=33.1198, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='BALAT', network='TU',
+  lat=39.5561, lon=33.1198, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='BALB', network='KO',
+  lat=39.64, lon=27.88, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='BALY', network='TU',
+  lat=39.7403, lon=27.6195, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='BAYT', network='KO',
+  lat=40.141, lon=40.3935, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='BBAL', network='TU',
+  lat=39.5427, lon=33.123, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='BBD', network='TU',
+  lat=37.8022, lon=28.8528, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='BCA', network='KO',
+  lat=41.445, lon=41.6223, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='BCAM', network='TU',
+  lat=40.8158, lon=32.0656, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='BCK', network='KO',
+  lat=37.461, lon=30.5877, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='BDRM', network='TU',
+  lat=37.0653, lon=27.4442, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='BEDI', network='YL',
+  lat=41.121, lon=33.506, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='BEKI', network='YL',
+  lat=41.315, lon=34.263, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='BES', network='TU',
+  lat=37.7001, lon=37.855, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='BEST', network='TU',
+  lat=37.8911, lon=41.27, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='BGK', network='KO',
+  lat=41.181, lon=28.773, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='BGKT', network='KO',
+  lat=41.181, lon=28.773, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='BLCB', network='KO',
+  lat=38.3853, lon=27.042, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='BLN', network='TU',
+  lat=38.6349, lon=27.8219, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='BNGB', network='KO',
+  lat=38.9913, lon=40.6792, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='BNGL', network='TU',
+  lat=38.9521, lon=41.1499, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='BNN', network='KO',
+  lat=38.8522, lon=35.8472, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='BODT', network='KO',
+  lat=37.0622, lon=27.3103, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='BOKE', network='YL',
+  lat=40.552, lon=36.211, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='BOLV', network='TU',
+  lat=38.7138, lon=30.9502, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='BORA', network='TU',
+  lat=39.8801, lon=30.4534, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='BOZ', network='TU',
+  lat=40.534, lon=28.782, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='BOZC', network='TU',
+  lat=39.8417, lon=26.0528, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='BSTP', network='TU',
+  lat=37.9505, lon=34.1083, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='BTAS', network='TU',
+  lat=40.5706, lon=30.9999, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='BUY', network='TU',
+  lat=40.8523, lon=29.118, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='BZK', network='KO',
+  lat=41.96, lon=34.0035, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='CAKM', network='YL',
+  lat=40.015, lon=37.367, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='CALT', network='YL',
+  lat=41.328, lon=35.125, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='CAM', network='TU',
+  lat=38.7484, lon=27.3125, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='CANB', network='KO',
+  lat=40.0167, lon=27.0624, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='CANT', network='KO',
+  lat=40.6062, lon=33.6197, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='CAVI', network='KO',
+  lat=40.2018, lon=29.8377, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='CAY', network='TU',
+  lat=37.172, lon=35.318, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='CAYA', network='YL',
+  lat=40.373, lon=34.269, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='CDAG', network='TU',
+  lat=39.6236, lon=34.3719, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='CEYT', network='KO',
+  lat=37.0107, lon=35.7478, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='CGC', network='TU',
+  lat=37.747, lon=37.296, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='CKO', network='TU',
+  lat=37.0625, lon=35.367, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='CLDR', network='KO',
+  lat=39.144, lon=43.9172, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='CLH', network='TU',
+  lat=38.0156, lon=38.2066, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='CMH', network='TU',
+  lat=40.012, lon=27.97, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='CNG', network='TU',
+  lat=38.1954, lon=39.2954, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='CORM', network='KO',
+  lat=40.1785, lon=34.6302, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='CRL', network='KO',
+  lat=41.129, lon=27.736, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='CRLT', network='KO',
+  lat=41.129, lon=27.736, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='CRLU', network='YL',
+  lat=40.064, lon=34.357, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='CSS', network='GE',
+  lat=34.96, lon=33.33, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='CTKS', network='KO',
+  lat=41.2373, lon=28.5072, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='CTYL', network='KO',
+  lat=41.476, lon=28.2897, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='CUKT', network='KO',
+  lat=37.2473, lon=43.6077, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='CUKU', network='YL',
+  lat=40.604, lon=33.441, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='CVD', network='TU',
+  lat=37.7522, lon=28.1066, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='DAD', network='TU',
+  lat=39.9081, lon=32.7534, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='DAG', network='TU',
+  lat=38.004, lon=27.7508, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='DAGI', network='TU',
+  lat=41.0778, lon=41.9142, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='DALT', network='KO',
+  lat=36.8162, lon=28.6532, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='DALY', network='KO',
+  lat=36.8161, lon=28.6531, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='DARE', network='KO',
+  lat=38.5712, lon=37.4832, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='DAT', network='KO',
+  lat=36.729, lon=27.5778, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='DBAD', network='TU',
+  lat=41.0183, lon=41.6947, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='DBOC', network='TU',
+  lat=41.3453, lon=41.6666, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='DDEM', network='TU',
+  lat=40.8923, lon=41.7507, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='DED', network='TU',
+  lat=36.9614, lon=34.7993, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='DEMI', network='TU',
+  lat=39.0428, lon=28.7162, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='DERE', network='YL',
+  lat=41.477, lon=35.064, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='DGB', network='TU',
+  lat=38.0521, lon=26.8826, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='DIGO', network='TU',
+  lat=40.4147, lon=43.3742, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='DIKM', network='KO',
+  lat=41.6497, lon=35.2578, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='DIYA', network='TU',
+  lat=37.9234, lon=40.1208, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='DNZL', network='TU',
+  lat=37.6897, lon=29.0464, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='DOGL', network='YL',
+  lat=40.391, lon=35.284, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='DRY', network='TU',
+  lat=36.8386, lon=36.2496, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='DUMA', network='YL',
+  lat=40.918, lon=35.14, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='DURS', network='TU',
+  lat=39.6011, lon=28.4742, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='DUV', network='TU',
+  lat=38.22, lon=27.4491, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='DYBB', network='KO',
+  lat=37.9537, lon=40.1393, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='DYDN', network='TU',
+  lat=39.5436, lon=43.6889, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='EAK', network='TU',
+  lat=40.6862, lon=43.6069, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='EATA', network='TU',
+  lat=39.8622, lon=42.4916, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='EDC', network='KO',
+  lat=40.3468, lon=27.8633, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='EDRB', network='KO',
+  lat=41.847, lon=26.7437, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='EKAR', network='TU',
+  lat=39.2559, lon=42.064, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='EKIN', network='YL',
+  lat=41.147, lon=35.787, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='ELBA', network='TU',
+  lat=41.1469, lon=28.4307, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='ELDT', network='TU',
+  lat=40.4897, lon=33.4294, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='ELL', network='KO',
+  lat=36.7483, lon=29.9085, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='ELZG', network='TU',
+  lat=38.4978, lon=38.9844, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='ENEZ', network='KO',
+  lat=40.7362, lon=26.153, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='EPOS', network='TU',
+  lat=41.5035, lon=42.7279, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='ERBA', network='TU',
+  lat=40.6814, lon=36.7547, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='ERE', network='TU',
+  lat=40.0453, lon=28.8913, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='EREN', network='KO',
+  lat=35.5292, lon=34.1742, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='ERIK', network='KO',
+  lat=40.6708, lon=26.5132, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='ERMK', network='TU',
+  lat=36.6414, lon=32.9113, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='ERZN', network='KO',
+  lat=39.5867, lon=39.722, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='ESK', network='TU',
+  lat=40.6069, lon=28.9455, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='ESPY', network='KO',
+  lat=38.7273, lon=40.9167, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='EUZM', network='TU',
+  lat=39.7073, lon=39.6975, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='EZN', network='KO',
+  lat=39.8267, lon=26.3258, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='FETY', network='KO',
+  lat=36.6353, lon=29.0835, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='FRT', network='TU',
+  lat=38.684, lon=39.1976, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='GADA', network='KO',
+  lat=40.1908, lon=25.8987, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='GAZ', network='KO',
+  lat=37.1722, lon=37.2113, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='GAZI', network='TU',
+  lat=36.2347, lon=32.3157, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='GBZ', network='TU',
+  lat=40.7866, lon=29.4501, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='GBZX', network='KO',
+  lat=40.78, lon=29.45, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='GCAM', network='TU',
+  lat=37.7002, lon=27.2335, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='GDZ', network='TU',
+  lat=39.0875, lon=29.4814, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='GELI', network='KO',
+  lat=40.398, lon=26.4742, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='GEMT', network='KO',
+  lat=40.435, lon=29.189, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='GER', network='TU',
+  lat=38.0322, lon=39.035, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='GEVA', network='TU',
+  lat=38.3122, lon=43.0586, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='GLHS', network='KO',
+  lat=37.156, lon=29.4983, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='GOCE', network='YL',
+  lat=39.743, lon=34.348, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='GOLH', network='TU',
+  lat=37.2365, lon=29.5591, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='GONE', network='KO',
+  lat=40.0467, lon=27.686, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='GULE', network='TU',
+  lat=37.2837, lon=34.7765, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='GULT', network='KO',
+  lat=40.432, lon=30.515, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='GZY', network='TU',
+  lat=36.487, lon=36.154, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='HAKT', network='TU',
+  lat=37.5579, lon=43.7071, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='HAR', network='TU',
+  lat=38.3411, lon=28.7992, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='HAS', network='TU',
+  lat=36.7719, lon=36.465, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='HASA', network='YL',
+  lat=41.469, lon=33.565, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='HAVZ', network='TU',
+  lat=41.0743, lon=35.718, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='HCB', network='TU',
+  lat=37.3438, lon=36.908, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='HDMB', network='KO',
+  lat=36.964, lon=32.486, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='HOMI', network='TU',
+  lat=40.0452, lon=41.9055, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='HRTX', network='KO',
+  lat=40.8217, lon=29.668, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='IGD', network='TU',
+  lat=40.2641, lon=29.2015, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='IKL', network='KO',
+  lat=36.2387, lon=33.6852, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='ILGA', network='TU',
+  lat=41.0521, lon=33.7165, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='ILIC', network='KO',
+  lat=39.452, lon=38.5678, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='IMO', network='TU',
+  lat=37.2923, lon=35.6438, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='INCE', network='YL',
+  lat=40.581, lon=32.906, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='INSU', network='YL',
+  lat=39.842, lon=35.366, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='ISK', network='KO',
+  lat=41.0657, lon=29.0592, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='ISKB', network='KO',
+  lat=41.06, lon=29.06, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='ISKE', network='YL',
+  lat=40.764, lon=37.067, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='ISP', network='KO',
+  lat=37.8227, lon=30.5222, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='ISP', network='GE',
+  lat=37.8433, lon=30.5093, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='ISPR', network='TU',
+  lat=40.4873, lon=41.008, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='IZI', network='KO',
+  lat=40.3368, lon=29.4728, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='KAH', network='TU',
+  lat=37.8053, lon=38.6101, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='KAMA', network='TU',
+  lat=37.1861, lon=36.6677, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='KARA', network='KO',
+  lat=37.2607, lon=35.0547, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='KARA', network='YL',
+  lat=40.688, lon=35.245, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='KARG', network='YL',
+  lat=40.291, lon=33.552, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='KARS', network='KO',
+  lat=40.6152, lon=43.0937, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='KAST', network='TU',
+  lat=41.4904, lon=33.9286, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='KAVA', network='YL',
+  lat=40.28, lon=32.878, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='KCTX', network='KO',
+  lat=40.2625, lon=28.3353, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='KDHN', network='TU',
+  lat=38.5209, lon=32.1164, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='KDZE', network='KO',
+  lat=41.3132, lon=31.443, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='KELT', network='TU',
+  lat=40.1486, lon=39.2556, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='KEMA', network='TU',
+  lat=39.2688, lon=38.4932, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='KGAC', network='YL',
+  lat=40.941, lon=34.323, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='KHAL', network='TU',
+  lat=38.3703, lon=29.4917, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='KHM', network='TU',
+  lat=37.5234, lon=36.9909, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='KIYI', network='YL',
+  lat=40.131, lon=35.316, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='KIZIK', network='YL',
+  lat=40.048, lon=36.536, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='KIZK', network='TU',
+  lat=36.4803, lon=34.1437, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='KKZ', network='TU',
+  lat=41.1269, lon=27.3448, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='KKZM', network='TU',
+  lat=41.1269, lon=27.3448, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='KLC', network='TU',
+  lat=40.633, lon=29.398, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='KLY', network='KO',
+  lat=41.253, lon=29.042, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='KLYT', network='KO',
+  lat=41.253, lon=29.042, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='KMR', network='TU',
+  lat=40.418, lon=27.069, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='KMRS', network='KO',
+  lat=37.5053, lon=36.9, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='KNL', network='TU',
+  lat=40.2707, lon=27.5261, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='KONT', network='KO',
+  lat=37.9453, lon=32.3605, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='KOPT', network='TU',
+  lat=40.0179, lon=40.4972, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='KORT', network='TU',
+  lat=37.0007, lon=30.3503, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='KOZT', network='KO',
+  lat=37.4805, lon=35.8268, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='KRB', network='TU',
+  lat=38.1342, lon=28.4235, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='KRBG', network='KO',
+  lat=40.3932, lon=27.2977, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='KRC', network='TU',
+  lat=40.2625, lon=28.3352, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='KRT', network='TU',
+  lat=37.2595, lon=36.2232, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='KRTS', network='KO',
+  lat=36.573, lon=35.375, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='KTT', network='TU',
+  lat=38.6883, lon=28.093, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='KTUT', network='KO',
+  lat=40.987, lon=39.7667, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='KULA', network='KO',
+  lat=38.5145, lon=28.6607, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='KUYL', network='YL',
+  lat=41.59, lon=34.332, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='KUZA', network='YL',
+  lat=40.441, lon=36.248, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='KUZO', network='YL',
+  lat=40.904, lon=32.861, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='KUZU', network='TU',
+  lat=36.7735, lon=37.075, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='KVK', network='TU',
+  lat=40.6, lon=26.9, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='KVT', network='KO',
+  lat=41.0807, lon=36.0463, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='KVTB', network='KO',
+  lat=41.08, lon=36.04, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='LADK', network='KO',
+  lat=38.2, lon=32.3648, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='LAP', network='KO',
+  lat=40.3727, lon=26.7602, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='LEF', network='KO',
+  lat=35.1118, lon=32.8433, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='LFK', network='KO',
+  lat=35.2832, lon=33.5337, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='LOD', network='KO',
+  lat=39.8893, lon=32.764, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='MACK', network='TU',
+  lat=40.9432, lon=39.7686, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='MADM', network='TU',
+  lat=40.6537, lon=27.6647, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='MALT', network='KO',
+  lat=38.313, lon=38.427, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='MALT', network='GE',
+  lat=38.3134, lon=38.4273, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='MANT', network='TU',
+  lat=38.4908, lon=28.5578, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='MARD', network='TU',
+  lat=37.3132, lon=40.7776, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='MAZI', network='KO',
+  lat=37.4593, lon=40.4467, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='MDN', network='TU',
+  lat=38.3931, lon=39.6821, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='MDNY', network='KO',
+  lat=40.3708, lon=28.8847, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='MDU', network='KO',
+  lat=40.4653, lon=31.2145, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='MERS', network='KO',
+  lat=36.8678, lon=34.522, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='MFTX', network='KO',
+  lat=40.7867, lon=27.2812, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='MLSB', network='KO',
+  lat=37.2953, lon=27.7765, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='MRMT', network='KO',
+  lat=40.6058, lon=27.5837, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='MRMX', network='KO',
+  lat=40.6058, lon=27.5837, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='MUS', network='TU',
+  lat=38.7611, lon=41.5039, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='NAR', network='TU',
+  lat=37.3919, lon=37.1574, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='NEV', network='TU',
+  lat=39.954, lon=27.263, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='NUR', network='TU',
+  lat=37.1712, lon=36.7569, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='OGUR', network='YL',
+  lat=41.109, lon=35.165, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='OLTU', network='TU',
+  lat=40.5451, lon=41.9725, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='PAL', network='TU',
+  lat=38.6986, lon=39.9176, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='PALU', network='TU',
+  lat=38.6943, lon=39.9293, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='PANC', network='YL',
+  lat=40.647, lon=34.301, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='PELI', network='YL',
+  lat=41.113, lon=34.299, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='PHSR', network='KO',
+  lat=41.6308, lon=27.5238, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='PINB', network='TU',
+  lat=38.6769, lon=36.4027, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='PTG', network='TU',
+  lat=38.26, lon=38.6088, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='PTK', network='KO',
+  lat=38.8923, lon=39.3923, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='PZAR', network='KO',
+  lat=40.8988, lon=41.178, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='REY', network='TU',
+  lat=36.2597, lon=36.5988, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='RKY', network='KO',
+  lat=40.6875, lon=27.1777, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='RSDY', network='KO',
+  lat=40.3972, lon=37.3273, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='SARI', network='KO',
+  lat=38.4072, lon=36.4182, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='SART', network='TU',
+  lat=40.6889, lon=27.18, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='SCER', network='TU',
+  lat=39.8613, lon=37.1286, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='SDU', network='TU',
+  lat=37.4765, lon=30.9996, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='SEMD', network='KO',
+  lat=37.3473, lon=44.5209, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='SEYH', network='YL',
+  lat=40.856, lon=32.9, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='SHUT', network='KO',
+  lat=38.553, lon=30.551, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='SIL', network='KO',
+  lat=41.153, lon=29.643, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='SILT', network='KO',
+  lat=41.153, lon=29.643, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='SIRN', network='TU',
+  lat=37.4962, lon=42.413, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='SIRT', network='KO',
+  lat=37.501, lon=42.4392, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='SLV', network='TU',
+  lat=41.0731, lon=28.1403, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='SLV', network='KO',
+  lat=41.23, lon=28.21, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='SLVT', network='KO',
+  lat=41.23, lon=28.21, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='SPNC', network='KO',
+  lat=40.686, lon=30.3083, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='SUL', network='TU',
+  lat=38.0536, lon=28.7676, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='SULT', network='KO',
+  lat=38.1988, lon=33.5157, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='SUSE', network='TU',
+  lat=40.2086, lon=38.2025, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='SUTC', network='KO',
+  lat=37.4765, lon=30.9997, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='SVAN', network='KO',
+  lat=38.1512, lon=41.1985, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='SVRC', network='KO',
+  lat=38.3775, lon=39.306, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='SVRH', network='KO',
+  lat=39.447, lon=31.5232, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='SVSK', network='KO',
+  lat=39.9175, lon=36.9925, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='SYUN', network='YL',
+  lat=40.838, lon=33.529, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='TAHT', network='KO',
+  lat=36.367, lon=36.186, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='TATV', network='TU',
+  lat=38.58, lon=42.2672, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='TEPE', network='YL',
+  lat=41.369, lon=35.743, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='TKR', network='KO',
+  lat=40.9902, lon=27.5357, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='TKTP', network='TU',
+  lat=38.04, lon=30.32, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='TOKA', network='TU',
+  lat=40.3232, lon=36.4783, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='TRNX', network='KO',
+  lat=40.5, lon=27.27, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='TURN', network='TU',
+  lat=36.7753, lon=28.2444, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='TUTA', network='TU',
+  lat=39.4019, lon=42.8137, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='TVAN', network='TU',
+  lat=38.5241, lon=43.4037, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='TVSB', network='KO',
+  lat=39.4497, lon=29.4615, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='URFA', network='KO',
+  lat=37.441, lon=38.8213, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='URLA', network='TU',
+  lat=38.3602, lon=26.5956, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='UZP', network='TU',
+  lat=38.0313, lon=29.1746, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='VANB', network='KO',
+  lat=38.595, lon=43.3888, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='VRTB', network='KO',
+  lat=39.1603, lon=41.456, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='YAK', network='TU',
+  lat=38.515, lon=27.3235, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='YAYL', network='TU',
+  lat=36.0343, lon=36.107, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='YEN', network='TU',
+  lat=38.4058, lon=27.9487, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='YER', network='KO',
+  lat=37.1362, lon=28.2858, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='YESI', network='YL',
+  lat=40.405, lon=37.229, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='YIKI', network='YL',
+  lat=40.748, lon=35.954, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='YLVX', network='KO',
+  lat=40.5667, lon=29.3728, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='YNC', network='TU',
+  lat=37.8139, lon=28.5726, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='YNK', network='TU',
+  lat=40.8258, lon=27.3967, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='YURE', network='TU',
+  lat=36.8259, lon=35.6324, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+&receiver
+  station='ZEY', network='TU',
+  lat=38.2389, lon=26.5033, depth=0.0
+  attributes='N' 'E' 'Z', override=T, prefix='./traces/'
+/
+
+

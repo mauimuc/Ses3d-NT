@@ -1,0 +1,108 @@
+! Ses3d-NT configuration file
+
+! Parameters specifying the global grid
+&grid
+    nx = 90, ny = 84, nz = 20
+    lpd = 4  ! Lagrange-Polynomial-Degree
+    taper_width = 3 ! Width of tapering boundary elements 
+    taper_slope = 1.2 ! Slop of tapering boundary elements 
+/
+
+! Model extents and parameters
+&model
+    lat_min = 20.0, lat_max = 60.0
+    lon_min = -10.0, lon_max = 30.0
+    rad_min = 5371000.0, rad_max = 6371000.0
+    model_type = 3
+/
+
+! Time-Marching parameters
+&time
+    dt = 0.35
+    nt = 3200
+/
+
+! General parameters
+&general
+    workflow     = 'forward'          ! Defined in main program max 16 chars
+    !event_name   = '20090406_0000075' ! Optional, max 16 chars
+    log_file_dir = './log/'           ! Optional, filename is ether 'logfile_*.log' or "event_name_*.log"
+/
+
+&source_mt
+    lat = 42.3476
+    lon = 13.3800
+    depth = 9460.0
+    wavelet = 'RICKER' width = 15 onset = 20
+    ! M_xx M_xy M_xz M_yy M_yz M_zz
+    moment_tensor = 1.43e18 -1.77e18 -1.43e18 1.87e18 -0.27e18 -3.30e18
+/
+
+! Write model-parameters in netCDF file format
+&output_netcdf
+    timestep_start = 1
+    timestep_increment = 1
+    timestep_end = 1
+    attributes = 'rho' 'mu' 'lambda'
+    prefix = './examples/l_aquila/'
+/
+
+! Write displacement-velocity field in netCDF file format every 15th timestep
+&output_netcdf
+    timestep_start = 400
+    timestep_increment = 15
+    attributes = 'vx' 'vy' 'vz'
+    prefix = './examples/l_aquila/'
+/
+
+&receiver
+  network='IU', station='PAB', location='00',
+  lon=-4.3499, lat=39.5446, depth=0.0,
+  attributes='N' 'E' 'Z', override=T, prefix='./'
+/
+&receiver
+  network='MN', station='AQU',
+  lon=13.405, lat=42.354, depth=0.0,
+  attributes='N' 'E' 'Z', override=T, prefix='./'
+/
+&receiver
+  network='MN', station='CEL',
+  lon=15.8939, lat=38.2603, depth=0.0,
+  attributes='N' 'E' 'Z', override=T, prefix='./'
+/
+&receiver
+  network='MN', station='CUC',
+  lon=15.8155, lat=39.9938, depth=0.0,
+  attributes='N' 'E' 'Z', override=T, prefix='./'
+/
+&receiver
+  network='MN', station='TIP',
+  lon=16.7583, lat=39.1794, depth=0.0,
+  attributes='N' 'E' 'Z', override=T, prefix='./'
+/
+&receiver
+  network='MN', station='VSL',
+  lon=9.378, lat=39.496, depth=0.0,
+  attributes='N' 'E' 'Z', override=T, prefix='./'
+/
+&receiver
+  network='CA', station='FBR',
+  lon=2.125, lat=41.4164, depth=0.0,
+  attributes='N' 'E' 'Z', override=T, prefix='./'
+/
+&receiver
+  network='CA', station='POBL',
+  lon=1.0847, lat=41.3793, depth=0.0,
+  attributes='N' 'E' 'Z', override=T, prefix='./'
+/
+&receiver
+  network='FR', station='SJAF', location='00',
+  lon=2.882, lat=42.485, depth=0.0,
+  attributes='N' 'E' 'Z', override=T, prefix='./'
+/
+&receiver
+  network='GE', station='MATE',
+  lon=16.70442, lat=40.64907, depth=0.0,
+  attributes='N' 'E' 'Z', override=T, prefix='./'
+/
+

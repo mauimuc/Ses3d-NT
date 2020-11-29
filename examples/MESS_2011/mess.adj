@@ -1,0 +1,55 @@
+
+&grid
+    nx  = 16
+    ny  = 26
+    nz  = 12
+    lpd = 4
+    taper_width = 3
+    taper_slope = 1.2
+/
+
+&model
+    lat_min = -7.5, lat_max = 7.5,
+    lon_min = -5.0, lon_max = 20.0,
+    rad_min = 5371000.0, rad_max = 6371000.0,
+    model_type = 2
+    !rhoinv = './rhoinv'
+    !lambda = './lambda'
+    !mu     = './mu'
+/
+
+&time
+    dt = 0.75
+    nt = 700
+/
+
+&general
+    workflow     = 'adjoint'  ! defined in main program max 16 chars
+    event_name   = 'MESS-adj' ! optional max 16 chars
+    log_file_dir = './'       ! optional filame is ether 'logfile_*.log' or "event_name_*.log"
+/
+
+&grad
+    timestep_start = 700
+    timestep_increment = -10
+    timestep_end = 100
+    attributes = 'grad_rho', 'grad_cs'
+/
+
+&source_sf
+    lat = 0.0
+    lon = 12.50
+    depth = 1000.0
+    wavelet = './ad_stf_z'
+    direction = 0.0 0.0 1.0
+/
+
+&output_netcdf
+    timestep_increment = 200
+    timestep_start = 300
+    timestep_end = 700
+    override = T
+    attributes = 'grad_rho'
+    prefix = './'
+/
+

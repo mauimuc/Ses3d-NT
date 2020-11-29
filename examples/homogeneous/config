@@ -1,0 +1,107 @@
+
+&grid
+    nx  = 16
+    ny  = 26
+    nz  = 12
+    lpd = 4
+    taper_width = 3
+    taper_slope = 1.2
+/
+
+
+&model
+    lat_min = -7.5, lat_max = 7.5,
+    lon_min = -5.0, lon_max = 20.0,
+    rad_min = 5371000.0, rad_max = 6371000.0,
+    rhoinv = './rhoinv'
+    lambda = './lambda'
+    mu     = './mu'
+/
+
+
+&time
+    dt = 0.75
+    nt = 1200
+/
+
+
+&general
+    workflow     = 'forward'    ! defined in main program max 16 chars
+    log_file_dir = './'
+/
+
+
+&source_mt
+    lat = 0.0
+    lon = 2.5
+    depth = 30000.0
+    wavelet = 'RICKER', onset=150.0, width=100.0
+    ! M_xx M_xy M_xz M_yy M_yz M_zz
+    moment_tensor = 0.0 0.0 1.0e19 0.0 0.0 0.0
+/
+
+
+! Write displacement-velocity field in netCDF file format every 15th timestep
+&output_netcdf
+    timestep_start = 300
+    timestep_increment = 15
+    attributes = 'vx' 'vy' 'vz'
+    prefix = './'
+/
+
+&receiver
+    station ='stf'
+    lon = 2.5, lat = 0.0, depth = 30000.0
+    attributes = 'mxz'
+    prefix = './', override = T
+/
+
+
+&receiver
+    station ='XX01'
+    location = 'a'
+    lon = 7.51, lat  = 0.01, depth = 1.0
+    attributes = 'vx', 'vy', 'vz'
+    prefix = './', override = T
+/
+
+&receiver
+    station ='XX02'
+    location = 'a'
+    lon = 12.51, lat = -0.51, depth = 1.0
+    attributes = 'vx', 'vy', 'vz'
+    prefix = './', override = T
+/
+
+&receiver
+    station ='XX03'
+    location = 'a'
+    lon = 15.0, lat =  5.0, depth = 0.0
+    attributes = 'vx', 'vy', 'vz'
+    prefix = './', override = T
+/
+
+&receiver
+    station ='XX04'
+    location = 'a'
+    lon = -1.0, lat =  4.5, depth = 0.0
+    attributes = 'vx', 'vy', 'vz'
+    prefix = './', override = T
+/
+
+&receiver
+    station ='XX05'
+    location = 'a'
+    lon = -2.0, lat = 3.0, depth = 0.0
+    attributes = 'vx', 'vy', 'vz'
+    prefix = './', override = T
+/
+
+&receiver
+    station ='XX06'
+    location = 'b'
+    lon = -3.0, lat = -2.5, depth = 10000.0
+    attributes = 'vx', 'vy', 'vz'
+    prefix = './', override = T
+/
+

@@ -1,0 +1,109 @@
+
+&grid
+    nx  = 54
+    ny  = 21
+    nz  = 27
+    lpd = 5
+    taper_width = 6
+    taper_slope = 0.8
+/
+
+&model
+    lat_min = 67.0, lat_max = 77.0,
+    lon_min = -5.0, lon_max = 5.0,
+    rad_min = 5371000.0, rad_max = 6371000.0,
+    model_type = 3
+    !rhoinv = './DATA/norway/rhoinv'
+    !lambda = './DATA/norway/lambda'
+    !mu     = './DATA/norway/mu'
+    !a      = './DATA/norway/a' ! optional
+    !b      = './DATA/norway/b' ! optional
+    !c      = './DATA/norway/c' ! optional
+    !q      = './DATA/norway/q' ! optional
+/
+
+&time
+    dt = 0.052
+    nt = 4000
+    ! optional: yyyy, mm, dd, dm_GMT, h, m, s, ms
+    date_time = 2009, 8, 20, 0, 6, 35, 0, 0
+/
+
+&general
+    workflow     = 'forward'    ! defined in main program max 16 chars
+    event_name   = 'norway'     ! optional max 16 chars
+    log_file_dir = './'     ! optional filename is ether 'logfile_*.log' or "event_name_*.log"
+/
+
+
+&source_mt
+    lat=72.22
+    lon=00.84
+    depth=10000.0
+    wavelet = 'DELTA'
+    ! M_xx M_xy M_xz M_yy M_yz M_zz
+    moment_tensor = 3.82e17 8.11e17 0.15e17 5.86e17 -3.83e17 -9.69e17
+/
+
+! Write model-parameters in netCDF file format
+ &output_netcdf
+     timestep_start = 1
+     timestep_increment = 1
+     timestep_end = 1
+     attributes = 'rho' 'mu' 'lambda'
+     prefix = './DATA/norway/'
+ /
+
+ ! Write displacement-velocity field in netCDF file format every 15th timestep
+ &output_netcdf
+     timestep_start = 400
+     timestep_increment = 15
+     attributes = 'vx' 'vy' 'vz'
+     prefix = './DATA/norway/'
+ /
+
+&receiver
+    network='Ses3d opt'
+    station='X76N.0'
+    lat=76.0
+    lon=0.0
+    depth=500.0
+    attributes= 'vx' 'vy' 'vz'
+    prefix = './DATA/norway/'
+    override=T
+/
+
+&receiver
+    network='Ses3d opt'
+    station='X75N.0'
+    lat=75.0
+    lon=0.0
+    depth=500.0
+    attributes= 'vx' 'vy' 'vz'
+    prefix = './DATA/norway/'
+    override=T
+/
+
+&receiver
+    network='Ses3d opt'
+    station='X74N.0'
+    lat=74.0
+    lon=0.0
+    depth=500.0
+    attributes= 'vx' 'vy' 'vz'
+    prefix = './DATA/norway/'
+    override=T
+/
+
+&receiver
+    network='Ses3d opt'
+    station='X73N.0'
+    lat=73.0
+    lon=0.0
+    depth=500.0
+    attributes= 'vx' 'vy' 'vz'
+    prefix = './DATA/norway/'
+    override=T
+/
+
+

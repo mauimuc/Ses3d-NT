@@ -1,0 +1,152 @@
+&time
+    dt = 0.005
+    nt = 20 !50
+/
+
+&grid
+    nx=100, ny=100, nz=100
+    lpd=4
+    taper_width = 6
+    taper_slope = 0.8
+/
+
+&model
+    lat_min = -0.25, lat_max = 0.25,
+    lon_min = -0.25, lon_max = 0.25,
+    rad_min = 6321000.0, rad_max = 6371000.0,
+    rhoinv = './rhoinv_HSP1a'
+    lambda = './lambda_HSP1a'
+    mu     = './mu_HSP1a'
+/
+
+&general
+    workflow     = 'forward' ! defined in main program max 16 chars
+    event_name   = 'HSP1a'   ! optional max 16 chars
+    log_file_dir = './'
+/
+
+&source_mt
+    lat = 0.0
+    lon = 0.0
+    depth = 25000.0
+    wavelet = 'SISMOWINE'
+    ! M_xx M_xy M_xz M_yy M_yz M_zz
+    moment_tensor = 0.0 0.0 0.0 0.0 1.0e19 0.0
+/
+
+&output_netcdf
+    timestep_start = 1
+    timestep_increment = 1
+    timestep_end = 1
+    attributes = 'rho' 'vs' 'vp'
+    prefix = './'
+/
+
+&RECEIVER
+ NETWORK="        ",
+ STATION="1       ",
+ LOCATION="        ",
+ LAT=  6.25610352E-03,
+ LON=  0.00000000    ,
+ DEPTH=  20000.0000    ,
+ ATTRIBUTES="vx      ","vy      ","vz      ",
+ /
+&RECEIVER
+ NETWORK="        ",
+ STATION="2       ",
+ LOCATION="        ",
+ LAT=  5.00106812E-02,
+ LON=  0.00000000    ,
+ DEPTH=  19998.0000    ,
+ ATTRIBUTES="vx      ","vy      ","vz      ",
+ /
+&RECEIVER
+ NETWORK="        ",
+ STATION="3       ",
+ LOCATION="        ",
+ LAT=  9.37500000E-02,
+ LON=  0.00000000    ,
+ DEPTH=  19991.5000    ,
+ ATTRIBUTES="vx      ","vy      ","vz      ",
+ /
+&RECEIVER
+ NETWORK="        ",
+ STATION="4       ",
+ LOCATION="        ",
+ LAT=  4.43267822E-03,
+ LON=  4.42055287E-03,
+ DEPTH=  20000.0000    ,
+ ATTRIBUTES="vx      ","vy      ","vz      ",
+ /
+&RECEIVER
+ NETWORK="        ",
+ STATION="5       ",
+ LOCATION="        ",
+ LAT=  3.53622437E-02,
+ LON=  3.53554003E-02,
+ DEPTH=  19997.5000    ,
+ ATTRIBUTES="vx      ","vy      ","vz      ",
+ /
+&RECEIVER
+ NETWORK="        ",
+ STATION="6       ",
+ LOCATION="        ",
+ LAT=  6.62994385E-02,
+ LON=  6.62902221E-02,
+ DEPTH=  19991.5000    ,
+ ATTRIBUTES="vx      ","vy      ","vz      ",
+ /
+&RECEIVER
+ NETWORK="        ",
+ STATION="7       ",
+ LOCATION="        ",
+ LAT=  3.61633301E-03,
+ LON=  3.60884191E-03,
+ DEPTH=  20400.0000    ,
+ ATTRIBUTES="vx      ","vy      ","vz      ",
+ /
+&RECEIVER
+ NETWORK="        ",
+ STATION="8       ",
+ LOCATION="        ",
+ LAT=  2.88925171E-02,
+ LON=  2.88834646E-02,
+ DEPTH=  23198.5000    ,
+ ATTRIBUTES="vx      ","vy      ","vz      ",
+ /
+&RECEIVER
+ NETWORK="        ",
+ STATION="9       ",
+ LOCATION="        ",
+ LAT=  5.41839600E-02,
+ LON=  5.41803874E-02,
+ DEPTH=  25994.0000    ,
+ ATTRIBUTES="vx      ","vy      ","vz      ",
+ /
+&RECEIVER
+ NETWORK="        ",
+ STATION="10      ",
+ LOCATION="        ",
+ LAT=  3.34167480E-03,
+ LON=  5.00709750E-03,
+ DEPTH=  20184.0000    ,
+ ATTRIBUTES="vx      ","vy      ","vz      ",
+ /
+&RECEIVER
+ NETWORK="        ",
+ STATION="11      ",
+ LOCATION="        ",
+ LAT=  2.66342163E-02,
+ LON=  4.00920287E-02,
+ DEPTH=  21478.5000    ,
+ ATTRIBUTES="vx      ","vy      ","vz      ",
+ /
+&RECEIVER
+ NETWORK="        ",
+ STATION="12      ",
+ LOCATION="        ",
+ LAT=  5.01251221E-02,
+ LON=  7.51912519E-02,
+ DEPTH=  22769.0000    ,
+ ATTRIBUTES="vx      ","vy      ","vz      ",
+ /
