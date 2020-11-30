@@ -1,8 +1,8 @@
 !> @file
 !! Ses3d-NT - simulation of elastic wave propagation in spherical sections
 !!
-!! (c) by Stefan Mauerberger <mauerberger@geophysik.uni-muenchen.de>
-!!    and Maksym Melnyk <mmelnyk@geophysik.uni-muenchen.de>
+!! (c) by Stefan Mauerberger
+!!    and Maksym Melnyk
 !!
 !! This program is free software: you can redistribute it and/or modify
 !! under the terms of the GNU General Public License as published by
@@ -34,8 +34,8 @@
 !! @todo continental structure
 !! @todo ak135_t
 !!
-!! To specify the precision of floats this module expects to find a parameter 
-!! parameters_mod::real_kind in a module named parameters_mod. 
+!! To specify the precision of floats this module expects to find a parameter
+!! parameters_mod::real_kind in a module named parameters_mod.
 MODULE ak135_f_mod
     USE parameters_mod, ONLY : real_kind
 
@@ -79,7 +79,7 @@ MODULE ak135_f_mod
          608.55,  557.84,  507.13,  456.41,  405.70,  354.99, &
          304.28,  253.56,  202.85,  152.14,  101.43,   50.71, 0.00 ]
 
-    !> Depth for continental structures 
+    !> Depth for continental structures
     REAL(real_kind), PARAMETER :: ak135_c_r(c) = [ &
         6371.0 - [0.0, 20.0, 20.0, 35.0, 35.0, 71.0], &
         ak135_r(13:)]
@@ -221,7 +221,7 @@ MODULE ak135_f_mod
 
     PUBLIC :: ak135_f
 
-CONTAINS 
+CONTAINS
 
     !> Returns the values of rho, vp, vs, qmu, qkappa corresponding to the
     !! passed `x` value using ak135_f velocity model
@@ -235,7 +235,7 @@ CONTAINS
     ELEMENTAL SUBROUTINE ak135_f( x, rho, vp, vs, qmu, qkappa )
         ! Passed dummy variables
         REAL(real_kind), INTENT(IN) :: x
-        REAL(real_kind), INTENT(OUT), OPTIONAL :: rho, vp, vs, qmu, qkappa 
+        REAL(real_kind), INTENT(OUT), OPTIONAL :: rho, vp, vs, qmu, qkappa
         ! Local variables
         REAL(real_kind) :: delta
         INTEGER :: n, l, r
@@ -248,37 +248,37 @@ CONTAINS
             IF ( PRESENT( qmu ) ) qmu = HUGE(0.0_real_kind)
         END IF
 
-        ! Determine nearest index 
+        ! Determine nearest index
         n = MINLOC( ABS( ak135_r(:) - ABS(x) ), DIM=1 )
 
-        ! Find neighbouring indices 
+        ! Find neighbouring indices
         IF ( ak135_r(n) < ABS(x) ) THEN
             l = n
-            r = n - 1  
-        ELSE 
+            r = n - 1
+        ELSE
             l = n + 1
             r = n
         END IF
 
-        ! Calculate radial gradient for interpolation 
+        ! Calculate radial gradient for interpolation
         IF ( ak135_r(l) == ak135_r(r) ) THEN
-            ! If x is located at a discontinuity, returned values will be 
-            ! totally arbitrary. This however is necessary to suppress 
-            ! singularities in the latter linear interpolation. 
+            ! If x is located at a discontinuity, returned values will be
+            ! totally arbitrary. This however is necessary to suppress
+            ! singularities in the latter linear interpolation.
             delta = 0.0
         ELSE
             delta = ( x - ak135_r(l) ) / &
-                    ( ak135_r(r) - ak135_r(l) ) 
+                    ( ak135_r(r) - ak135_r(l) )
         END IF
 
 
         ! Interpolate linearly and assign return values
         IF ( PRESENT( rho ) ) &
-            rho = ak135_rho(l) + ( ak135_rho(r) - ak135_rho(l) ) * delta 
+            rho = ak135_rho(l) + ( ak135_rho(r) - ak135_rho(l) ) * delta
         IF ( PRESENT( vp ) ) &
-            vp = ak135_vp(l) + ( ak135_vp(r) - ak135_vp(l) ) * delta 
+            vp = ak135_vp(l) + ( ak135_vp(r) - ak135_vp(l) ) * delta
         IF ( PRESENT( vs ) ) &
-            vs = ak135_vs(l) + ( ak135_vs(r) - ak135_vs(l) ) * delta 
+            vs = ak135_vs(l) + ( ak135_vs(r) - ak135_vs(l) ) * delta
         IF ( PRESENT( qmu ) ) &
             qmu = ak135_qmu(l) + ( ak135_qmu(r) - ak135_qmu(l) ) * delta
         IF ( PRESENT( qkappa ) ) &

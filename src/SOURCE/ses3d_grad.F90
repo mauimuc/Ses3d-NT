@@ -1,9 +1,9 @@
 ! SES3D - simulation of elastic wave propagation in spherical sections
 
-! (c) by Andreas Fichtner <A.Fichtner@uu.nl>
-!        Tarje Nissen-Meyer <tarjen@ethz.ch>
-!        Heiner Igel <igel@geophysik.uni-muenchen.de>
-!        Stefan Mauerberger <mauerberger@geophysik.uni-muenchen.de>
+! (c) by Andreas Fichtner
+!        Tarje Nissen-Meyer
+!        Heiner Igel
+!        Stefan Mauerberger
 
 ! This program is free software: you can redistribute it and/or modify
 ! under the terms of the GNU General Public License as published by

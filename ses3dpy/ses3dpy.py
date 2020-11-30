@@ -38,7 +38,7 @@ visualisation results it is useful to have LaTeX and AMSLaTeX installed which
 enables Matplotlib to render text much nicer.
 
 :copyright:
-    Stefan Mauerberger <mauerberger@geophysik.uni-muenchen.de>, 2013
+    Stefan Mauerberger, 2013
 
 :license:
     GNU Lesser General Public License, Version 3
@@ -50,8 +50,8 @@ __version__ = '0.5.beta -- Sat Mar  2 09:11:52 CET 2013'
 
 def read_config_file(file):
     """
-This function reads in a Ses3d-NT configuration file. The parameter set will 
-be returned as an associated dictionary. 
+This function reads in a Ses3d-NT configuration file. The parameter set will
+be returned as an associated dictionary.
 Parameter values having a capital X in its name are lists with three
 entries. The X represents the spatial directions. In lists appearing, the
 zero entry corresponds to the x-, the first to the y- and the second to the
@@ -87,11 +87,11 @@ par_file : string
 
 def raw_empty_field(par):
     """
-Returns an empty field 
+Returns an empty field
 
 Parameters:
 -----------
-par: dictionary 
+par: dictionary
     Dictionary with parameters from read_par_file() """
 
     from numpy import empty
@@ -99,7 +99,7 @@ par: dictionary
     lpd = par['lpd'] + 1
     shape = list(par['nX_global']) + [lpd, lpd, lpd]
     return empty(shape)
-    
+
 
 
 def read_field(par, file_name):

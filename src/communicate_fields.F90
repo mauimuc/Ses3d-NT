@@ -1,8 +1,8 @@
 !> @file
 !! Ses3d-NT - simulation of elastic wave propagation in spherical sections
 !!
-!! (c) by Gilbert Brietzke <gilbert.brietzke@lrz.de>
-!!    and Stefan Mauerberger <mauerberger@geophysik.uni-muenchen.de>
+!! (c) by Gilbert Brietzke
+!!    and Stefan Mauerberger
 !!
 !! This program is free software: you can redistribute it and/or modify
 !! under the terms of the GNU General Public License as published by
@@ -20,23 +20,23 @@
 !! $Date: 2013-11-30 10:55:27 +0100 (Sat, 30 Nov 2013) $
 !! $Author: mauerberger $
 !! $Revision: 828 $
-!! @copyright GNU General Public License version 3 or later 
+!! @copyright GNU General Public License version 3 or later
 
 
 
-!> Module for communicating/exchanging values between adjacent elements. 
+!> Module for communicating/exchanging values between adjacent elements.
 !!
-!! It provides two subroutines. One communicates values of adjacent 
+!! It provides two subroutines. One communicates values of adjacent
 !! elements locally. The other exchanges values amongst processes/ranks.
 MODULE communicate_fields_mod
     USE parameters_mod, ONLY : real_kind, my_mpi_real
     USE configuration_mod, ONLY : conf => configuration
-    ! A GCC <= 4.8.1 workaround 
+    ! A GCC <= 4.8.1 workaround
     USE grid_mod, ONLY : nx_loc, ny_loc, nz_loc, lpd
 
     IMPLICIT NONE
-    
-    PRIVATE 
+
+    PRIVATE
 
     PUBLIC :: communicate_local_boundaries, communicate_global_boundaries
 
@@ -58,7 +58,7 @@ CONTAINS
         nz_ = conf%nz_loc()
         lpd_ = conf%lpd()
 
-        ! Communicate theta direction 
+        ! Communicate theta direction
         DO i=1, nx_
            field(  i,:,:,   0,:,:) = field(i,:,:,0,:,:) + field(i-1,:,:,lpd_,:,:)
            field(i-1,:,:,lpd_,:,:) = field(i,:,:,0,:,:)
@@ -70,7 +70,7 @@ CONTAINS
            field(:,j-1,:,:,lpd_,:) = field(:,j,:,:,0,:)
         ENDDO
 
-        ! Communicate r direction 
+        ! Communicate r direction
         DO k=1, nz_
            field(:,:,  k,:,:,   0) = field(:,:,k,:,:,0) + field(:,:,k-1,:,:,lpd_)
            field(:,:,k-1,:,:,lpd_) = field(:,:,k,:,:,0)
@@ -81,10 +81,10 @@ CONTAINS
 
     !> Communication between processors
     !!
-    !! @note Could be more efficient using nonblocking communication. 
-    !!       However, this is difficult because edges and corners have to be 
-    !!       exchanges explicitly. This results in a total of 26 MPI calls. 
-    !!        * 6 faces 
+    !! @note Could be more efficient using nonblocking communication.
+    !!       However, this is difficult because edges and corners have to be
+    !!       exchanges explicitly. This results in a total of 26 MPI calls.
+    !!        * 6 faces
     !!        * 12 edges
     !!        * 8 points
     !!
@@ -92,11 +92,11 @@ CONTAINS
     SUBROUTINE communicate_global_boundaries(field)
 #ifndef MPI_INCLUDE
         !! RECOMMENDED !!
-        ! in case MPI_INCLUDE is NOT defined the mpi module will be used 
+        ! in case MPI_INCLUDE is NOT defined the mpi module will be used
         USE mpi
 #else
-        !! DEPRECATED !! 
-        ! when MPI_INCLUDE is defined, mpi header-files will be included 
+        !! DEPRECATED !!
+        ! when MPI_INCLUDE is defined, mpi header-files will be included
         INCLUDE 'mpif.h'
 #endif
         ! Passed dummy variable
@@ -136,111 +136,111 @@ CONTAINS
 
         !!! Communication in x direction
         !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        ! Send to and receive from southern neighbour 
-        IF ( south >= 0 ) THEN 
+        ! Send to and receive from southern neighbour
+        IF ( south >= 0 ) THEN
             ! Buffer; prevents overriding edges and corners while sending
             s_south(:,:,:,:) = field(nx_,:,:,lpd_,:,:)
             ! Send local norther-face to western neighbouring rank
             CALL MPI_ISend( s_south, SIZE(s_south), my_mpi_real, south, &
                             110, mpi_comm_cart, requests(1), ierr )
-            ! Receive from southern neighbouring rank 
+            ! Receive from southern neighbouring rank
             CALL MPI_IRecv( r_south, SIZE(r_south), my_mpi_real, south, &
                             120, mpi_comm_cart, requests(2), ierr )
-        ELSE 
-            ! If there is no neighbour 
+        ELSE
+            ! If there is no neighbour
             r_south(:,:,:,:) = 0.0
         END IF
-        ! Send to and receive from northern neighbour 
-        IF ( north >= 0 ) THEN 
+        ! Send to and receive from northern neighbour
+        IF ( north >= 0 ) THEN
             ! Buffer; prevents overriding edges and corners while sending
             s_north = field(0,:,:,0,:,:)
             ! Send local southern-face to western neighbouring rank
             CALL MPI_ISend( s_north, SIZE(s_north), my_mpi_real, north, &
                             120, mpi_comm_cart, requests(3), ierr )
-            ! Receive from northern neighbouring rank 
+            ! Receive from northern neighbouring rank
             CALL MPI_IRecv( r_north, SIZE(r_north), my_mpi_real, north, &
                             110, mpi_comm_cart, requests(4), ierr )
         ELSE
-            ! If there is no neighbour 
+            ! If there is no neighbour
             r_north(:,:,:,:) = 0.0
         END IF
-        ! Wait till MPI communication has finished 
+        ! Wait till MPI communication has finished
         CALL MPI_Waitall( 4, requests(:), statuses(:,:), ierr )
-        ! Exchange boundaries 
+        ! Exchange boundaries
         field(nx_,:,:,lpd_,:,:) = field(nx_,:,:,lpd_,:,:) + r_south
         field(0,:,:,0,:,:) = field(0,:,:,0,:,:) + r_north
 
 
         !!! Communication in y direction
         !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        ! Send to and receive from eastern neighbour 
-        IF ( east >= 0 ) THEN 
+        ! Send to and receive from eastern neighbour
+        IF ( east >= 0 ) THEN
             ! Buffer; prevents overriding edges and corners while sending
             s_east = field(:,ny_,:,:,lpd_,:)
             ! Send local western-face to western neighbouring rank
             CALL MPI_ISend( s_east, SIZE(s_east), my_mpi_real, east, &
                             130, mpi_comm_cart, requests(1), ierr )
-            ! Receive from eastern neighbouring rank 
+            ! Receive from eastern neighbouring rank
             CALL MPI_IRecv( r_east, SIZE(r_east), my_mpi_real, east, &
                             140, mpi_comm_cart, requests(2), ierr )
         ELSE
-            ! If there is no neighbour 
+            ! If there is no neighbour
             r_east(:,:,:,:) = 0.0
         END IF
-        ! Send to and receive from western neighbour 
-        IF ( west >= 0 ) THEN 
+        ! Send to and receive from western neighbour
+        IF ( west >= 0 ) THEN
             ! Buffer; prevents overriding edges and corners while sending
             s_west = field(:,0,:,:,0,:)
             ! Send local eastern-face to western neighbouring rank
             CALL MPI_ISend( s_west, SIZE(s_west), my_mpi_real, west, &
                             140, mpi_comm_cart, requests(3), ierr )
-            ! Receive from western neighbouring rank 
+            ! Receive from western neighbouring rank
             CALL MPI_IRecv( r_west, SIZE(r_west), my_mpi_real, west, &
                             130, mpi_comm_cart, requests(4), ierr )
         ELSE
-            ! If there is no neighbour 
+            ! If there is no neighbour
             r_west(:,:,:,:) = 0.0
         END IF
-        ! Wait till MPI communication has finished 
+        ! Wait till MPI communication has finished
         CALL MPI_Waitall( 4, requests(:), statuses(:,:), ierr )
-        ! Exchange boundaries 
+        ! Exchange boundaries
         field(:,ny_,:,:,lpd_,:) = field(:,ny_,:,:,lpd_,:) + r_east
         field(:,0,:,:,0,:) = field(:,0,:,:,0,:) + r_west
 
 
         !!! Communication in z direction
         !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        ! Send to and receive from top neighbour 
-        IF ( top >= 0  ) THEN 
+        ! Send to and receive from top neighbour
+        IF ( top >= 0  ) THEN
             ! Buffer; prevents overriding edges and corners while sending
             s_top = field(:,:,nz_,:,:,lpd_)
             ! Send local bottom-face to top neighbouring rank
             CALL MPI_ISend( s_top, SIZE(s_top), my_mpi_real, top, &
                             150, mpi_comm_cart, requests(1), ierr )
-            ! Receive from top neighbouring rank 
+            ! Receive from top neighbouring rank
             CALL MPI_IRecv( r_top, SIZE(r_top), my_mpi_real, top, &
                             160, mpi_comm_cart, requests(2), ierr )
-        ELSE 
-            ! If there is no neighbour 
+        ELSE
+            ! If there is no neighbour
             r_top(:,:,:,:) = 0.0
         END IF
-        ! Send to and receive from bottom neighbour 
-        IF ( bottom >= 0 ) THEN 
+        ! Send to and receive from bottom neighbour
+        IF ( bottom >= 0 ) THEN
             ! Buffer; prevents overriding edges and corners while sending
             s_bottom = field(:,:,0,:,:,0)
             ! Send local top-face to bottom neighbouring rank
             CALL MPI_ISend( s_bottom, SIZE(s_bottom), my_mpi_real, bottom, &
                             160, mpi_comm_cart, requests(3), ierr )
-            ! Receive from bottom neighbouring rank 
+            ! Receive from bottom neighbouring rank
             CALL MPI_IRecv( r_bottom, SIZE(r_bottom), my_mpi_real, bottom, &
                             150, mpi_comm_cart, requests(4), ierr )
-        ELSE 
-            ! If there is no bottom neighbour 
+        ELSE
+            ! If there is no bottom neighbour
             r_bottom(:,:,:,:) = 0.0
         END IF
-        ! Wait till MPI communication has finished 
+        ! Wait till MPI communication has finished
         CALL MPI_Waitall( 4, requests(:), statuses(:,:), ierr )
-        ! Exchange boundaries 
+        ! Exchange boundaries
         field(:,:,nz_,:,:,lpd_) = field(:,:,nz_,:,:,lpd_) + r_top
         field(:,:,0,:,:,0) = field(:,:,0,:,:,0) + r_bottom
 

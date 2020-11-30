@@ -1,8 +1,8 @@
 !> @file
 !! Ses3d-NT - simulation of elastic wave propagation in spherical sections
 !!
-!! (c) by Michael Haas <mhaas@geophysik.uni-muenchen.de>
-!!        Stefan Mauerberger <mauerberger@geophysik.uni-muenchen.de>
+!! (c) by Michael Haas
+!!        Stefan Mauerberger
 !!
 !! This program is free software: you can redistribute it and/or modify
 !! under the terms of the GNU General Public License as published by

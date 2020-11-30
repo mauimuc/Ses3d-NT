@@ -1,7 +1,7 @@
 !> @file
 !! Ses3d-NT - simulation of elastic wave propagation in spherical sections
 !!
-!! (c) by Stefan Mauerberger <mauerberger@geophysik.uni-muenchen.de>
+!! (c) by Stefan Mauerberger
 !!
 !! This program is free software: you can redistribute it and/or modify
 !! under the terms of the GNU General Public License as published by
@@ -25,8 +25,8 @@
 
 !> MPI Parallel I/O
 !!
-!! Procedures included are ought to preform asynchronous parallel file in- and 
-!! output. 
+!! Procedures included are ought to preform asynchronous parallel file in- and
+!! output.
 MODULE mpi_parallel_io_mod
     USE parameters_mod, ONLY : real_kind, isl, is_mpi_master_rank, &
                                my_mpi_real, init_my_mpi_real, &
@@ -35,15 +35,15 @@ MODULE mpi_parallel_io_mod
 ! line control through pre-processor directives
 #ifndef MPI_INCLUDE
     !! RECOMMENDED !!
-    ! in case MPI_INCLUDE is NOT defined the mpi module will be used 
+    ! in case MPI_INCLUDE is NOT defined the mpi module will be used
     USE mpi
 #endif
 
     IMPLICIT NONE
-    
+
 #ifdef MPI_INCLUDE
-        !! DEPRECATED !! 
-        ! when MPI_INCLUDE is defined, mpi header-files will be included 
+        !! DEPRECATED !!
+        ! when MPI_INCLUDE is defined, mpi header-files will be included
         INCLUDE 'mpif.h'
 #endif
 
@@ -63,11 +63,11 @@ CONTAINS
         INTEGER :: distrib(6) = [ MPI_DISTRIBUTE_BLOCK, &
                                   MPI_DISTRIBUTE_BLOCK, &
                                   MPI_DISTRIBUTE_BLOCK, &
-                                  MPI_DISTRIBUTE_NONE, & 
+                                  MPI_DISTRIBUTE_NONE, &
                                   MPI_DISTRIBUTE_NONE, &
                                   MPI_DISTRIBUTE_NONE ]
         ! Distribution argument in each dimension (array of positive integers)
-        INTEGER :: drags(6) = [ MPI_DISTRIBUTE_DFLT_DARG, & 
+        INTEGER :: drags(6) = [ MPI_DISTRIBUTE_DFLT_DARG, &
                                 MPI_DISTRIBUTE_DFLT_DARG, &
                                 MPI_DISTRIBUTE_DFLT_DARG, &
                                 MPI_DISTRIBUTE_DFLT_DARG, &
@@ -83,27 +83,27 @@ CONTAINS
         IF ( .NOT. ALLOCATED(my_mpi_darray) ) &
             ALLOCATE( my_mpi_darray )
 
-        ASSOCIATE( px => conf%px(), & 
-                   py => conf%py(), & 
+        ASSOCIATE( px => conf%px(), &
+                   py => conf%py(), &
                    pz => conf%pz()  )
 
-        ! Creates a 6d distributed array 
+        ! Creates a 6d distributed array
         CALL MPI_TYPE_CREATE_DARRAY( conf%mpi_size(), & ! n_cpus
                                      conf%mpi_rank(), & ! MPI-rank
                                      6, & ! array-rank
                                      conf%shape_glb(), & ! global shape
-                                     distrib, & 
-                                     drags, & 
+                                     distrib, &
+                                     drags, &
                                      [ px, py, pz, 1, 1, 1 ], &
                                      MPI_ORDER_FORTRAN, &
                                      my_mpi_real, & ! kind type
                                      my_mpi_darray, & ! handle
-                                     mpi_err ) 
+                                     mpi_err )
 
         ! Initialize distributed array
         ! XXX very important question:
-        !   may my_mpi_darray be used simultaneously for IO? 
-        CALL MPI_TYPE_COMMIT( my_mpi_darray, mpi_err ) 
+        !   may my_mpi_darray be used simultaneously for IO?
+        CALL MPI_TYPE_COMMIT( my_mpi_darray, mpi_err )
 
         END ASSOCIATE
 
@@ -111,13 +111,13 @@ CONTAINS
 
 
 
-    !> Beginning part of a split collective routine (nonblocking) writing 
+    !> Beginning part of a split collective routine (nonblocking) writing
     !! the passed field to a file. It returns a file handle.
     !!
-    !! @param file_name Filename 
-    !! @param filed The field must no be altered while writing 
-    !! @param override If true existing files are overwritten 
-    !! @result A MPI file handle 
+    !! @param file_name Filename
+    !! @param filed The field must no be altered while writing
+    !! @param override If true existing files are overwritten
+    !! @result A MPI file handle
     FUNCTION mpi_write_parallel_begin( file_name, field, override ) &
         RESULT( mpi_file_handle )
         USE error_mod, ONLY : warn
@@ -127,13 +127,13 @@ CONTAINS
         INTEGER :: mpi_file_handle, amode, mpi_err, ierr2, str_len
         CHARACTER(LEN=isl) :: mpi_err_string
 
-        ! In case initialize my_mpi_darray 
+        ! In case initialize my_mpi_darray
         IF ( .NOT. ALLOCATED(my_mpi_darray) ) &
             CALL init_my_mpi_darray()
 
-        ! Set the file access mode to non-override 
+        ! Set the file access mode to non-override
         amode = MPI_MODE_CREATE+MPI_MODE_WRONLY+MPI_MODE_EXCL
-        ! In case override == true 
+        ! In case override == true
         IF ( PRESENT(override) ) THEN
             IF ( override .EQV. .TRUE. ) &
                 amode = MPI_MODE_CREATE+MPI_MODE_WRONLY
@@ -149,7 +149,7 @@ CONTAINS
 
         IF ( mpi_err /= MPI_SUCCESS ) THEN
             CALL MPI_ERROR_STRING( mpi_err, mpi_err_string, str_len, ierr2 )
-            mpi_err_string = "Error while writing raw output " // & 
+            mpi_err_string = "Error while writing raw output " // &
                 TRIM(file_name) // ' - ' // mpi_err_string(1:str_len)
             IF ( conf%log_file_true() ) &
                 CALL warn( TRIM(mpi_err_string), conf%log_file_unit )
@@ -175,19 +175,19 @@ CONTAINS
         ! Starts writing field to file_name (nonblocking)
         CALL MPI_FILE_WRITE_ALL_BEGIN( mpi_file_handle, &
                                        field, &
-                                       PRODUCT( SHAPE( field ) ), & 
+                                       PRODUCT( SHAPE( field ) ), &
                                        my_mpi_real, &
-                                       mpi_err ) 
+                                       mpi_err )
 
     END FUNCTION mpi_write_parallel_begin
 
-    !> Ending part of the split collective write routine (blocking). 
+    !> Ending part of the split collective write routine (blocking).
     !!
-    !! @param mpi_file_handle A MPI file handle 
+    !! @param mpi_file_handle A MPI file handle
     !! @param filed The corresponding field (not altered)
     SUBROUTINE mpi_write_parallel_end( mpi_file_handle, field )
         REAL(real_kind), INTENT(IN) :: field(:,:,:,:,:,:)
-        INTEGER :: mpi_file_handle 
+        INTEGER :: mpi_file_handle
         INTEGER :: mpi_status(MPI_STATUS_SIZE), mpi_err
 
         ! Waits till file has been written (blocking)
@@ -201,19 +201,19 @@ CONTAINS
 
     END SUBROUTINE mpi_write_parallel_end
 
-    !> Convenience procedure to put mpi_write_parallel_begin() and 
+    !> Convenience procedure to put mpi_write_parallel_begin() and
     !! mpi_write_parallel_end() into one single call.
     !!
     !! @param file_name Filename
-    !! @param field Field to write 
-    !! @param override If true existing files are overwritten 
+    !! @param field Field to write
+    !! @param override If true existing files are overwritten
     SUBROUTINE mpi_write_parallel( file_name, field, override )
         CHARACTER(LEN=*), INTENT(IN):: file_name
         REAL(real_kind), INTENT(IN) :: field(:,:,:,:,:,:)
         LOGICAL, INTENT(IN), OPTIONAL :: override
         INTEGER :: fh
 
-        ! Initiate writing field to file file_name 
+        ! Initiate writing field to file file_name
         fh = mpi_write_parallel_begin( file_name, field, override )
 
         ! Wait till file has been written
@@ -223,12 +223,12 @@ CONTAINS
 
 
 
-    !> Beginning part of a split collective routine (nonblocking) reading 
-    !! from a file into the passed field. 
+    !> Beginning part of a split collective routine (nonblocking) reading
+    !! from a file into the passed field.
     !!
-    !! @param file_name Filename 
+    !! @param file_name Filename
     !! @param field Field
-    !! @result A MPI file handle 
+    !! @result A MPI file handle
     FUNCTION mpi_read_parallel_begin(file_name, field) RESULT(mpi_file_handle)
         CHARACTER(LEN=*), INTENT(IN):: file_name
         REAL(real_kind), INTENT(INOUT) :: field(:,:,:,:,:,:)
@@ -260,20 +260,20 @@ CONTAINS
 
         CALL MPI_FILE_READ_ALL_BEGIN( mpi_file_handle, &
                                       field, &
-                                      PRODUCT( SHAPE( field ) ), & 
+                                      PRODUCT( SHAPE( field ) ), &
                                       my_mpi_real, &
-                                      mpi_err ) 
+                                      mpi_err )
 
     END FUNCTION mpi_read_parallel_begin
 
-    !> Ending part of the split collective read routine (blocking). 
+    !> Ending part of the split collective read routine (blocking).
     !!
-    !! @param mpi_file_handle A MPI file handle 
-    !! @param filed The corresponding field 
+    !! @param mpi_file_handle A MPI file handle
+    !! @param filed The corresponding field
     SUBROUTINE mpi_read_parallel_end( mpi_file_handle, field )
         USE error_mod, ONLY : abort
         REAL(real_kind), INTENT(INOUT) :: field(:,:,:,:,:,:)
-        INTEGER, INTENT(INOUT) :: mpi_file_handle 
+        INTEGER, INTENT(INOUT) :: mpi_file_handle
         INTEGER :: mpi_status(MPI_STATUS_SIZE), mpi_err, &
                    local_counts, global_counts, my_mpi_real_size
         INTEGER(MPI_OFFSET_KIND) :: file_size
@@ -297,7 +297,7 @@ CONTAINS
                             MPI_INTEGER, &
                             MPI_SUM, &
                             conf%mpi_comm_cart(), &
-                            mpi_err ) 
+                            mpi_err )
         ! Returns the number of bytes occupied my_mpi_real_size
         CALL MPI_TYPE_SIZE( my_mpi_real, my_mpi_real_size, mpi_err )
 
@@ -310,29 +310,29 @@ CONTAINS
 
         ! Closes the file (collective)
         CALL MPI_FILE_CLOSE( mpi_file_handle, mpi_err )
-        
+
     END SUBROUTINE mpi_read_parallel_end
 
-    !> Convenience procedure to put mpi_read_parallel_begin() and 
+    !> Convenience procedure to put mpi_read_parallel_begin() and
     !! mpi_read_parallel_end() into one single call.
     !!
-    !! @bug GCC bug: field has to allocatable 
+    !! @bug GCC bug: field has to allocatable
     !! (see http://gcc.gnu.org/bugzilla/show_bug.cgi?id=57966)
     !!
-    !! @param file_name Filename 
-    !! @param field Field to write 
-    !! @param override If true existing files are overwritten 
+    !! @param file_name Filename
+    !! @param field Field to write
+    !! @param override If true existing files are overwritten
     FUNCTION mpi_read_parallel( file_name ) RESULT( field )
         CHARACTER(LEN=*), INTENT(IN) :: file_name
         REAL(real_kind), ALLOCATABLE :: field (:,:,:,:,:,:)
         INTEGER :: fh
-       
-        ! Unfortunately an allocatable needs to be used 
+
+        ! Unfortunately an allocatable needs to be used
         ! placing conf%... at initialization does not work
         ALLOCATE( field(0:conf%nx_loc(),0:conf%ny_loc(),0:conf%nz_loc(),&
                         0:conf%lpd(),   0:conf%lpd(),   0:conf%lpd()  ) )
 
-        ! Initiate writing field to file file_name 
+        ! Initiate writing field to file file_name
         fh = mpi_read_parallel_begin( file_name, field )
 
         ! Wait till file has been written

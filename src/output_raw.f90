@@ -1,7 +1,7 @@
 !> @file
 !! Ses3d-NT - simulation of elastic wave propagation in spherical sections
 !!
-!! (c) by Stefan Mauerberger <mauerberger@geophysik.uni-muenchen.de>
+!! (c) by Stefan Mauerberger
 !!
 !! This program is free software: you can redistribute it and/or modify
 !! under the terms of the GNU General Public License as published by
@@ -124,7 +124,7 @@ CONTAINS
     END FUNCTION
 
     !> Stores the current value for attribute as raw binary file
-    !! @todo does not work reliable if a write has not finished before the 
+    !! @todo does not work reliable if a write has not finished before the
     !!       simulation ends
     SUBROUTINE write_volume_snapshot(self, it)
         USE mpi_parallel_io_mod, ONLY : mpi_write_parallel_begin, &

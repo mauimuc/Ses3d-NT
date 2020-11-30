@@ -1,8 +1,8 @@
 !> @file
 !! Ses3d-NT - simulation of elastic wave propagation in spherical sections
 !!
-!! (c) by Stefan Mauerberger <mauerberger@geophysik.uni-muenchen.de>
-!!    and Maksym Melnyk <mmelnyk@geophysik.uni-muenchen.de>
+!! (c) by Stefan Mauerberger
+!!    and Maksym Melnyk
 !!
 !! This program is free software: you can redistribute it and/or modify
 !! under the terms of the GNU General Public License as published by
@@ -45,7 +45,7 @@ MODULE prem_mod
     INTEGER, PARAMETER :: real_kind = 8 ! real_kind
 #endif
 
-    ! Defines stratified earth structure 
+    ! Defines stratified earth structure
     REAL(real_kind), PARAMETER :: R_EARTH          = 6371000.0, &
                                   ROCEAN           = 6368000.0, &
                                   RMIDDLE_CRUST    = 6356000.0, &
@@ -83,14 +83,14 @@ ELEMENTAL SUBROUTINE prem_iso( r, rho, drhodr, vs, vp, qkappa, qmu, &
 
     LOGICAL, INTENT(IN), OPTIONAL :: nocrust, noocean
     REAL(real_kind), INTENT(OUT), OPTIONAL :: rho, drhodr, vs, vp, qkappa, qmu
-    
+
     ! Local variables
     LOGICAL :: nocrust_, noocean_
     REAL(real_kind) :: x, rho_, drhodr_, vs_, vp_, qkappa_, qmu_
-  
+
 
     ! TODO move to subroutine prem_no_crust
-    nocrust_ = .FALSE. 
+    nocrust_ = .FALSE.
     IF ( PRESENT(nocrust) ) &
         nocrust_ = nocrust
 
@@ -99,13 +99,13 @@ ELEMENTAL SUBROUTINE prem_iso( r, rho, drhodr, vs, vp, qkappa, qmu, &
     IF ( PRESENT(noocean) ) &
         noocean_ = noocean
 
-    ! Normalize radius 
+    ! Normalize radius
     x = ABS( r / R_EARTH )
 
     ! --- inner core
     IF ( r >= 0.0 .AND. r <= RICB ) THEN
         drhodr_ =-2.00*8.83810*x
-        rho_    = 13.08850 - 8.83810*x**2  
+        rho_    = 13.08850 - 8.83810*x**2
         vp_     = 11.26220 - 6.36400*x**2
         vs_     = 3.66780 - 4.44750*x**2
         qmu_    = 84.60
@@ -114,8 +114,8 @@ ELEMENTAL SUBROUTINE prem_iso( r, rho, drhodr, vs, vp, qkappa, qmu, &
     ! --- outer core
     ELSE IF ( r > RICB .and. r <= RCMB ) THEN
         drhodr_ =-1.263800 - 2.0*3.64260*x - 3.00*5.52810*x**2
-        rho_    = 12.58150 - 1.26380*x - 3.64260*x**2 -  5.52810*x**3 
-        vp_     = 11.04870 - 4.03620*x + 4.80230*x**2 - 13.57320*x**3 
+        rho_    = 12.58150 - 1.26380*x - 3.64260*x**2 -  5.52810*x**3
+        vp_     = 11.04870 - 4.03620*x + 4.80230*x**2 - 13.57320*x**3
         vs_     = 0.0 ! TINY(0.0_real_kind)
         qmu_    = HUGE(0.0_real_kind) ! TODO should be +Inv
         qkappa_ = 57823.00
@@ -138,7 +138,7 @@ ELEMENTAL SUBROUTINE prem_iso( r, rho, drhodr, vs, vp, qkappa, qmu, &
         qmu_    = 312.00
         qkappa_ = 57823.00
 
-    !  
+    !
     ELSE IF ( r > R771 .AND. r <= R670 ) THEN
         drhodr_ =-6.47610+2.00*5.52830*x-3.00*3.08070*x*x
         rho_    = 7.95650-6.47610*x+5.52830*x*x-3.08070*x*x*x
@@ -156,7 +156,7 @@ ELEMENTAL SUBROUTINE prem_iso( r, rho, drhodr, vs, vp, qkappa, qmu, &
         qmu_    = 143.00
         qkappa_ = 57823.00
 
-    ! --- 
+    ! ---
     ELSE IF ( r > R600 .AND. r <= R400 ) THEN
         drhodr_ =-8.02980
         rho_    = 11.24940-8.02980*x
@@ -165,7 +165,7 @@ ELEMENTAL SUBROUTINE prem_iso( r, rho, drhodr, vs, vp, qkappa, qmu, &
         qmu_    = 143.00
         qkappa_ = 57823.00
 
-    ! --- 
+    ! ---
     ELSE IF ( r > R400 .AND. r <= R220 ) THEN
         drhodr_ =-3.80450
         rho_    = 7.10890-3.80450*x
@@ -174,7 +174,7 @@ ELEMENTAL SUBROUTINE prem_iso( r, rho, drhodr, vs, vp, qkappa, qmu, &
         qmu_    = 143.00
         qkappa_ = 57823.00
 
-    ! --- LVZ 
+    ! --- LVZ
     ELSE IF ( R > R220 .AND. R <= R80 ) THEN
         drhodr_ = 0.69240
         rho_    = 2.69100 + 0.69240*x
@@ -183,7 +183,7 @@ ELEMENTAL SUBROUTINE prem_iso( r, rho, drhodr, vs, vp, qkappa, qmu, &
         qmu_    = 80.00
         qkappa_ = 57823.00
 
-    ! --- LID 
+    ! --- LID
     ELSE IF ( r > R80 .AND. r <= RMOHO ) THEN
         drhodr_ = 0.69240
         rho_    = 2.69100 + 0.69240*x
@@ -201,7 +201,7 @@ ELEMENTAL SUBROUTINE prem_iso( r, rho, drhodr, vs, vp, qkappa, qmu, &
         qmu_    = 600.00
         qkappa_ = 57823.00
 
-    ! --- Middle crust 
+    ! --- Middle crust
     ELSE IF ( r > RMIDDLE_CRUST .AND. r <= ROCEAN ) THEN
         drhodr_ = 0.00
         rho_    = 2.60
@@ -237,7 +237,7 @@ ELEMENTAL SUBROUTINE prem_iso( r, rho, drhodr, vs, vp, qkappa, qmu, &
         vs_=3.20
         qmu_=600.00
         qkappa_=57823.00
-    end if 
+    end if
 
     ! TODO move to subroutine prem_no_crust
     if ( nocrust_ .AND. ( r > R80 ) ) then
@@ -250,13 +250,13 @@ ELEMENTAL SUBROUTINE prem_iso( r, rho, drhodr, vs, vp, qkappa, qmu, &
     end if
 
     IF ( PRESENT( rho ) ) &
-        rho    = rho_ 
+        rho    = rho_
     IF ( PRESENT( drhodr ) ) &
-        drhodr = drhodr_ 
+        drhodr = drhodr_
     IF ( PRESENT( vp ) ) &
-        vp     = vp_ 
+        vp     = vp_
     IF ( PRESENT( vs ) ) &
-        vs     = vs_ 
+        vs     = vs_
     IF ( PRESENT( qkappa ) ) &
         qkappa = qkappa_
     IF ( PRESENT( qmu ) ) &
@@ -264,9 +264,9 @@ ELEMENTAL SUBROUTINE prem_iso( r, rho, drhodr, vs, vp, qkappa, qmu, &
 
   END SUBROUTINE prem_iso
 
-    
-     
-    !> Subroutine Preliminary Reference Earth Model (PREM) 
+
+
+    !> Subroutine Preliminary Reference Earth Model (PREM)
     !!
     !> @param[in] r Radius corresponding to the depth [km]
     !> @param[out] rho Density [Mg/km3]
@@ -279,7 +279,7 @@ ELEMENTAL SUBROUTINE prem_iso( r, rho, drhodr, vs, vp, qkappa, qmu, &
     !> @param[out] eta [dimensionless]
     !> @param[out] qkappa Bulk quality factor
     !> @param[out] qmu Shear quality factor
-    ELEMENTAL SUBROUTINE prem( r, drhodr, rho, vpv, vph, vsv, vsh, & 
+    ELEMENTAL SUBROUTINE prem( r, drhodr, rho, vpv, vph, vsv, vsh, &
                                eta, qkappa, qmu )
         REAL(real_kind), INTENT(IN) :: r
         REAL(real_kind), INTENT(OUT), OPTIONAL :: drhodr, rho, vpv, vph, vsv, &
@@ -287,16 +287,16 @@ ELEMENTAL SUBROUTINE prem_iso( r, rho, drhodr, vs, vp, qkappa, qmu, &
         ! Local variables
         REAL(real_kind) :: x, drhodr_, rho_, vsh_, vsv_, vph_, vpv_, &
                     eta_, qkappa_, qmu_
-        ! Normalize radius 
+        ! Normalize radius
         x = ABS( r / R_EARTH )
-        
+
         ! --- LVZ (Low-velocity zone)
         IF ( r > R220 .AND. r <= R80 ) THEN
             drhodr_ = 0.69240
             rho_    = 2.69100 + 0.69240*x
             vph_    = 3.59080 + 4.61720*x
-            vpv_    = 0.83710 + 7.21800*x 
-            vsh_    =-1.08390 + 5.71760*x 
+            vpv_    = 0.83710 + 7.21800*x
+            vsh_    =-1.08390 + 5.71760*x
             vsv_    = 5.85820 - 1.46780*x
             eta_    = 3.36870 - 2.47780*x
             qmu_    = 80.00
@@ -307,14 +307,14 @@ ELEMENTAL SUBROUTINE prem_iso( r, rho, drhodr, vs, vp, qkappa, qmu, &
             drhodr_ = 0.69240
             rho_    = 2.69100 + 0.69240*x
             vph_    = 3.59080 + 4.61720*x
-            vpv_    = 0.83710 + 7.21800*x 
-            vsh_    =-1.08390 + 5.71760*x 
+            vpv_    = 0.83710 + 7.21800*x
+            vsh_    =-1.08390 + 5.71760*x
             vsv_    = 5.85820 - 1.46780*x
             eta_    = 3.36870 - 2.47780*x
             qmu_    = 600.00
             qkappa_ = 57823.00
 
-        ELSE 
+        ELSE
             CALL prem_iso( r, rho=rho_, drhodr=drhodr_, vp=vpv_, vs=vsv_, &
                            qmu=qmu_, qkappa=qkappa_ )
             vph_ = vpv_
@@ -322,23 +322,23 @@ ELEMENTAL SUBROUTINE prem_iso( r, rho, drhodr, vs, vp, qkappa, qmu, &
             eta_ = 1.0
 
         END IF
-  
+
         IF ( PRESENT( rho ) ) &
-            rho    = rho_ 
+            rho    = rho_
         IF ( PRESENT( drhodr ) ) &
-            drhodr = drhodr_ 
+            drhodr = drhodr_
         IF ( PRESENT( vpv ) ) &
-            vpv    = vpv_ 
+            vpv    = vpv_
         IF ( PRESENT( vph ) ) &
-            vph    = vph_ 
+            vph    = vph_
         IF ( PRESENT( vsv ) ) &
-            vsv    = vsv_ 
+            vsv    = vsv_
         IF ( PRESENT( vsh ) ) &
-            vsh    = vsh_ 
+            vsh    = vsh_
         IF ( PRESENT( eta ) ) &
-            eta    = eta_ 
+            eta    = eta_
         IF ( PRESENT( qmu ) ) &
-            qmu    = qmu_ 
+            qmu    = qmu_
         IF ( PRESENT( qkappa ) ) &
             qkappa = qkappa_
 

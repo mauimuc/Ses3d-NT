@@ -1,7 +1,7 @@
 ! Ses3d-NT - simulation of elastic wave propagation in spherical sections
 !
-! (c) by Stefan Mauerberger <mauerberger@geophysik.uni-muenchen.de>
-!    and Maksym Melnyk <mmelnyk@geophysik.uni-muenchen.de>
+! (c) by Stefan Mauerberger
+!    and Maksym Melnyk
 !
 ! This program is free software: you can redistribute it and/or modify
 ! under the terms of the GNU General Public License as published by
@@ -21,26 +21,26 @@
 !! $Date: 2013-08-21 08:54:40 +0200 (Wed, 21 Aug 2013) $
 !! $Author: mauerberger $
 !! $Revision: 618 $
-!> @copyright GNU General Public License version 3 or later 
+!> @copyright GNU General Public License version 3 or later
 MODULE error_mod
         USE ISO_FORTRAN_ENV, ONLY : ERROR_UNIT
 
     PRIVATE
 
     !> @brief Writes warning messages.
-    !> @details An interface differentiating between passing a single string 
+    !> @details An interface differentiating between passing a single string
     !! or an array of strings either with or without passing a unit identifier.
-    !! If no unit is specified ERROR_UNIT is assumed. 
-    INTERFACE warn 
-        MODULE PROCEDURE warn_single 
-        MODULE PROCEDURE warn_single_w_unit 
-        MODULE PROCEDURE warn_multi 
-        MODULE PROCEDURE warn_multi_w_unit 
+    !! If no unit is specified ERROR_UNIT is assumed.
+    INTERFACE warn
+        MODULE PROCEDURE warn_single
+        MODULE PROCEDURE warn_single_w_unit
+        MODULE PROCEDURE warn_multi
+        MODULE PROCEDURE warn_multi_w_unit
     END INTERFACE warn
 
 
-    !> @brief Causes immediate termination of program execution. 
-    !> @details An interface differentiating between having a unit identifier 
+    !> @brief Causes immediate termination of program execution.
+    !> @details An interface differentiating between having a unit identifier
     !! specified or not. If not ERROR_UNIT is assumed.
     INTERFACE abort
         MODULE PROCEDURE abort_w_unit
@@ -51,10 +51,10 @@ MODULE error_mod
 
 CONTAINS
 
-    
-    !> @brief Causes immediate termination of program execution. 
-    !> @details First, the passed error message is written into a unit 
-    !! identifier than the program gets terminated using 
+
+    !> @brief Causes immediate termination of program execution.
+    !> @details First, the passed error message is written into a unit
+    !! identifier than the program gets terminated using
     !! Fortran's intrinsic STOP statement.
     !> @param msg Error message (A singe string of arbitrary length)
     !> @param unit A unit specifier
@@ -69,7 +69,7 @@ CONTAINS
 
 
 
-    !> Causes immediate termination of the program using abort_w_unit() 
+    !> Causes immediate termination of the program using abort_w_unit()
     !! invoking ERROR_UNIT
     !> @param msg Error message (A singe string of arbitrary length)
     SUBROUTINE abort_(msg)
@@ -78,8 +78,8 @@ CONTAINS
     END SUBROUTINE abort_
 
 
-    
-    !> Writes a waring message into a unit identifier. 
+
+    !> Writes a waring message into a unit identifier.
     !> @param msg The message (a singe string of arbitrary length)
     !> @param unit A unit identifier
     SUBROUTINE warn_single_w_unit(msg, unit)
@@ -89,7 +89,7 @@ CONTAINS
         WRITE(UNIT=unit, FMT='("WARNING: ", A)') msg
 
     END SUBROUTINE warn_single_w_unit
-    
+
 
 
     !> Writes a warning message into unit ERROR_UNIT using warn_single_w_unit()
@@ -98,13 +98,13 @@ CONTAINS
         CHARACTER(LEN=*), INTENT(IN) :: msg
         CALL warn_single_w_unit(msg=msg, unit=ERROR_UNIT)
     END SUBROUTINE warn_single
-    
 
-    
-    !> Writes multiple waring messages into a unit identifier using 
+
+
+    !> Writes multiple waring messages into a unit identifier using
     !! warn_single_w_unit()
     !> @param msg Array of messages (multiple strings of same length)
-    !> @param unit A unit identifier 
+    !> @param unit A unit identifier
     SUBROUTINE warn_multi_w_unit(msg, unit)
         CHARACTER(LEN=*), INTENT(IN) :: msg(:)
         INTEGER, INTENT(IN) :: unit

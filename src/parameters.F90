@@ -1,7 +1,7 @@
 !> @file
 !! Ses3d-NT - simulation of elastic wave propagation in spherical sections
 !!
-!! (c) by Stefan Mauerberger <mauerberger@geophysik.uni-muenchen.de>
+!! (c) by Stefan Mauerberger
 !!
 !! This program is free software: you can redistribute it and/or modify
 !! under the terms of the GNU General Public License as published by
@@ -79,8 +79,7 @@ MODULE parameters_mod
     !> String printed on program start.
     CHARACTER(LEN=*), PARAMETER, PUBLIC :: gpl_phrase = &
         "Ses3d-NT " // NEW_LINE('a') // &
-        "Copyright (C) 2013 Stefan Mauerberger &
-        &<mauerberger@geophysik.uni-muenchen.de>" // NEW_LINE('a') // &
+        "Copyright (C) 2013 Stefan Mauerberger " // NEW_LINE('a') // &
         "This program comes with ABSOLUTELY NO WARRANTY. It is free software, &
         &and you are welcome to modify and redistribute it under the terms of &
         &GNU GPL version 3 or later. "

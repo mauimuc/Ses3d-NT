@@ -3,7 +3,7 @@
 
 # plot_mode_z_1d.py -- v0.4.2
 # Sat Jan  5 10:26:31 CET 2013
-# by Stefan Mauerberger <mauerberger@geophysik.uni-muenchen.de>
+# by Stefan Mauerberger
 
 ########################################################################
 # this python script reads in and plots SES3Ds radial model parameters #

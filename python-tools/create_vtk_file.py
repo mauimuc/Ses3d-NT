@@ -1,10 +1,10 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-# create_vtk_file.py 
+# create_vtk_file.py
 
-# by Stefan Mauerberger <mauerberger@geophysik.uni-muenchen.de>
-#    Michael Haas <mhaas@geophysik.uni-muenchen.de>
+# by Stefan Mauerberger
+#    Michael Haas
 
 # last modified: $Date: 2012-10-26 18:31:45 +0200 (Fri, 26 Oct 2012) $
 
@@ -30,19 +30,19 @@ output_file = args.output
 config_file = args.config
 file_names = args.input
 
-# read parameter file 
+# read parameter file
 par = ses3dpy.read_config_file( config_file ) # read parameters of the simulation
- 
+
 # generate coordinates
 t,p,r = ses3dpy.generate_coordinates( par, no_dup=False )
 t     = t * pi / 180
 p     = p * pi / 180
-# 3d coordinate mesh 
+# 3d coordinate mesh
 T,P,R = ses3dpy.mesh3d(t,p,r)
 # transform to Cartesian coordinates
-X = R * sin(T) * cos(P) 
-Y = R * sin(T) * sin(P) 
-Z = R * cos(T) 
+X = R * sin(T) * cos(P)
+Y = R * sin(T) * sin(P)
+Z = R * cos(T)
 X = ses3dpy.pop_duplicates( par, X )
 Y = ses3dpy.pop_duplicates( par, Y )
 Z = ses3dpy.pop_duplicates( par, Z )
@@ -55,5 +55,5 @@ for file_name in file_names:
 # write vtk file
 ses3dpy.write_vtk( (X,Y,Z), fields, output_file )
 # output location
-print 'Created %s' % output_file 
+print 'Created %s' % output_file
 

@@ -1,9 +1,9 @@
 !> @file
 !! Ses3d-NT - simulation of elastic wave propagation in spherical sections
 !!
-!! (c) by Stefan Mauerberger <mauerberger@geophysik.uni-muenchen.de>
-!!    and Lion Krischer <krischer@geophysik.uni-muenchen.de>
-!!    and Maksym Melnyk <mmelnyk@geophysik.uni-muenchen.de>
+!! (c) by Stefan Mauerberger
+!!    and Lion Krischer
+!!    and Maksym Melnyk
 !!
 !! This program is free software: you can redistribute it and/or modify
 !! under the terms of the GNU General Public License as published by
@@ -25,12 +25,12 @@
 
 
 
-!> This module provides few low-lever procedures to convert coordinates among 
-!! spherical and Cartesian coordinate systems. 
+!> This module provides few low-level procedures to convert coordinates among
+!! spherical and Cartesian coordinate systems.
 !!
-!! The module expects to find the parameters parameters_mod::real_kind, 
-!! parameters_mod::earth_radius and parameters_mod::pi in a module named 
-!! parameters_mod. 
+!! The module expects to find the parameters parameters_mod::real_kind,
+!! parameters_mod::earth_radius and parameters_mod::pi in a module named
+!! parameters_mod.
 MODULE coordinate_utilities_mod
     USE parameters_mod, ONLY : real_kind, earth_radius, pi
 
@@ -120,7 +120,7 @@ CONTAINS
     !! @param z z-component in Cartesian coordinates
     !! @param theta inclination in spherical coordinates [rad]
     !! @param phi azimuth in spherical coordinates [rad]
-    !! @param r radial component in spherical coordinates 
+    !! @param r radial component in spherical coordinates
     !! @return spherical coordinates vector: [theta, phi, r]
     ELEMENTAL SUBROUTINE xyz2tpr( x, y, z, theta, phi, r )
         REAL(real_kind), INTENT(IN) :: x, y, z
@@ -134,8 +134,8 @@ CONTAINS
     !! Cartesian coordinates (x,y,z)
     !!
     !! \f[
-    !!  \begin{pmatrix} x\\ y\\ z \end{pmatrix} = 
-    !!  \begin{pmatrix} r \, \sin \theta \, \cos \phi \\ 
+    !!  \begin{pmatrix} x\\ y\\ z \end{pmatrix} =
+    !!  \begin{pmatrix} r \, \sin \theta \, \cos \phi \\
     !!                  r \, \sin \theta \, \sin \phi \\
     !!                  r \, \cos \theta \end{pmatrix}
     !! \f]

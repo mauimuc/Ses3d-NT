@@ -1,9 +1,9 @@
 ! SES3D - simulation of elastic wave propagation in spherical sections
 
-! (c) by Andreas Fichtner <A.Fichtner@uu.nl>
-!        Tarje Nissen-Meyer <tarjen@ethz.ch>
-!        Heiner Igel <igel@geophysik.uni-muenchen.de>
-!        Stefan Mauerberger <mauerberger@geophysik.uni-muenchen.de>
+! (c) by Andreas Fichtner
+!        Tarje Nissen-Meyer
+!        Heiner Igel
+!        Stefan Mauerberger
 
 ! This program is free software: you can redistribute it and/or modify
 ! under the terms of the GNU General Public License as published by
@@ -48,9 +48,9 @@ CONTAINS
 SUBROUTINE init_temp
     USE gll_mod, only : get_dlgll
     USE model_paras_mod, ONLY : a, b, c, qq
-    INTEGER :: i,j 
-    
-    ! Just a few temporal hacks 
+    INTEGER :: i,j
+
+    ! Just a few temporal hacks
     ispml = 0.0
     dt = config%dt()
     dx_elm = config%dx_elm()
@@ -65,13 +65,13 @@ SUBROUTINE init_temp
         anisotropy = .TRUE.
     ELSE
         anisotropy = .FALSE.
-    END IF 
-    
+    END IF
+
     IF ( ANY( qq /= HUGE(0.0_real_kind ) ) ) THEN
         visco_elasticity = .TRUE.
     ELSE
         visco_elasticity = .FALSE.
-    END IF 
+    END IF
 
     ! Initialisation of LAGRANGE polynomial derivatives
     ALLOCATE( dl(0:config%lpd(),0:config%lpd()) )
@@ -116,7 +116,7 @@ SUBROUTINE ses3d_evolution
                        sxz(0:nx,0:ny,0:nz,0:lpd,0:lpd,0:lpd), &
                        syy(0:nx,0:ny,0:nz,0:lpd,0:lpd,0:lpd), &
                        syz(0:nx,0:ny,0:nz,0:lpd,0:lpd,0:lpd), &
-                       szz(0:nx,0:ny,0:nz,0:lpd,0:lpd,0:lpd) 
+                       szz(0:nx,0:ny,0:nz,0:lpd,0:lpd,0:lpd)
 
 
     !----------------------------------------------------------------------
@@ -125,35 +125,35 @@ SUBROUTINE ses3d_evolution
 
     exx(:,:,:,:,:,:)=0.0; exy(:,:,:,:,:,:)=0.0; exz(:,:,:,:,:,:)=0.0
     eyx(:,:,:,:,:,:)=0.0; eyy(:,:,:,:,:,:)=0.0; eyz(:,:,:,:,:,:)=0.0
-    ezx(:,:,:,:,:,:)=0.0; ezy(:,:,:,:,:,:)=0.0; ezz(:,:,:,:,:,:)=0.0  
+    ezx(:,:,:,:,:,:)=0.0; ezy(:,:,:,:,:,:)=0.0; ezz(:,:,:,:,:,:)=0.0
 
     DO i=0,lpd
         DO q=0,lpd
-            
+
             dummy_3 = 2.0*dl(q,i)/dz_elm
             dummy_2 = 2.0*dl(q,i)/dy_elm
             dummy_1 = 2.0*dl(q,i)/dx_elm
 
             ! (grad v)_(r r)
-            ezz(:,:,:,:,:,i)=ezz(:,:,:,:,:,i)+vz(:,:,:,:,:,q)*dummy_3 
+            ezz(:,:,:,:,:,i)=ezz(:,:,:,:,:,i)+vz(:,:,:,:,:,q)*dummy_3
             ! (grad v)_(r phi)
-            ezy(:,:,:,:,:,i)=ezy(:,:,:,:,:,i)+vy(:,:,:,:,:,q)*dummy_3 
-            ! (grad v)_(r theta) 
-            ezx(:,:,:,:,:,i)=ezx(:,:,:,:,:,i)+vx(:,:,:,:,:,q)*dummy_3 
-                                                                  
-            ! (grad v)_(phi phi)                                  
-            eyy(:,:,:,:,i,:)=eyy(:,:,:,:,i,:)+vy(:,:,:,:,q,:)*dummy_2 
+            ezy(:,:,:,:,:,i)=ezy(:,:,:,:,:,i)+vy(:,:,:,:,:,q)*dummy_3
+            ! (grad v)_(r theta)
+            ezx(:,:,:,:,:,i)=ezx(:,:,:,:,:,i)+vx(:,:,:,:,:,q)*dummy_3
+
+            ! (grad v)_(phi phi)
+            eyy(:,:,:,:,i,:)=eyy(:,:,:,:,i,:)+vy(:,:,:,:,q,:)*dummy_2
             ! (grad v)_(phi theta)
-            eyx(:,:,:,:,i,:)=eyx(:,:,:,:,i,:)+vx(:,:,:,:,q,:)*dummy_2 
-            ! (grad v)_(phi r)  
-            eyz(:,:,:,:,i,:)=eyz(:,:,:,:,i,:)+vz(:,:,:,:,q,:)*dummy_2 
-                                                                  
-            ! (grad v)_(theta theta)                              
-            exx(:,:,:,i,:,:)=exx(:,:,:,i,:,:)+vx(:,:,:,q,:,:)*dummy_1 
-            ! (grad v)_(theta phi)  
-            exy(:,:,:,i,:,:)=exy(:,:,:,i,:,:)+vy(:,:,:,q,:,:)*dummy_1 
-            ! (grad v)_(theta r)   
-            exz(:,:,:,i,:,:)=exz(:,:,:,i,:,:)+vz(:,:,:,q,:,:)*dummy_1 
+            eyx(:,:,:,:,i,:)=eyx(:,:,:,:,i,:)+vx(:,:,:,:,q,:)*dummy_2
+            ! (grad v)_(phi r)
+            eyz(:,:,:,:,i,:)=eyz(:,:,:,:,i,:)+vz(:,:,:,:,q,:)*dummy_2
+
+            ! (grad v)_(theta theta)
+            exx(:,:,:,i,:,:)=exx(:,:,:,i,:,:)+vx(:,:,:,q,:,:)*dummy_1
+            ! (grad v)_(theta phi)
+            exy(:,:,:,i,:,:)=exy(:,:,:,i,:,:)+vy(:,:,:,q,:,:)*dummy_1
+            ! (grad v)_(theta r)
+            exz(:,:,:,i,:,:)=exz(:,:,:,i,:,:)+vz(:,:,:,q,:,:)*dummy_1
 
         ENDDO
     ENDDO
@@ -206,11 +206,11 @@ SUBROUTINE ses3d_evolution
     exy(:,:,:,:,:,:)=(exy+eyx)/2.0
     exz(:,:,:,:,:,:)=(exz+ezx)/2.0
     eyz(:,:,:,:,:,:)=(eyz+ezy)/2.0
-    
+
     !======================================================================
     ! make strong form stress rates
     !======================================================================
-    
+
     ! - diagonal stress rates ---------------------------------------------
 
     !IF (is_diss==1) THEN    !- dissipation on
@@ -254,7 +254,7 @@ SUBROUTINE ses3d_evolution
     !    !Mdx=0.0
     !    !Mdy=0.0
     !    !Mdz=0.0
-    !   
+    !
     !    !DO k=1,nrdiss
 
     !    !    Mdx=Mdx+Mxy(k,:,:,:,:,:,:)
@@ -280,7 +280,7 @@ SUBROUTINE ses3d_evolution
     !    !    syz(:,:,:,:,:,:)=2.0*mu_tau*eyz+2.0*mu*Mdz
 
     !    !ENDIF
-          
+
     !ELSE            !- dissipation off
 
         ! Just for optimization
@@ -298,7 +298,7 @@ SUBROUTINE ses3d_evolution
 
     !ENDIF
 
-        
+
     !======================================================================
     ! march pml stresses (integrate stress rates)
     !======================================================================
@@ -319,21 +319,21 @@ SUBROUTINE ses3d_evolution
     syz(:,:,:,:,:,:) = syz_pml + src_yz
     szz(:,:,:,:,:,:) = szz_pml + src_zz
 
-    ! add single force 
-    sx(:,:,:,:,:,:) = src_x 
-    sy(:,:,:,:,:,:) = src_y 
-    sz(:,:,:,:,:,:) = src_z 
+    ! add single force
+    sx(:,:,:,:,:,:) = src_x
+    sy(:,:,:,:,:,:) = src_y
+    sz(:,:,:,:,:,:) = src_z
 
     !======================================================================
     ! make weak form of stress divergence
     !======================================================================
-    
+
     !- compute stress divergence (with moment tensor added to the stress tensor)
     DO i=0,lpd
         DO j=0,lpd
             DO k=0,lpd
 
-                ! XXX constant for all timesteps 
+                ! XXX constant for all timesteps
                 dummy_1 =  (2.0/dx_elm)*Jac
                 dummy_2 =  (2.0/dy_elm)*Jac
                 dummy_3 = -(2.0/dz_elm)*Jac
@@ -348,18 +348,18 @@ SUBROUTINE ses3d_evolution
                     sx(:,:,:,i,j,k)=sx(:,:,:,i,j,k) &
                         +(sxz(:,:,:,i,j,q))*dummy_z &
                         +(sxy(:,:,:,i,q,k))*dummy_y &
-                        +(sxx(:,:,:,q,j,k))*dummy_x 
-    
+                        +(sxx(:,:,:,q,j,k))*dummy_x
+
                     sy(:,:,:,i,j,k)=sy(:,:,:,i,j,k) &
                         +(syz(:,:,:,i,j,q))*dummy_z &
                         +(syy(:,:,:,i,q,k))*dummy_y &
-                        +(sxy(:,:,:,q,j,k))*dummy_x 
-    
+                        +(sxy(:,:,:,q,j,k))*dummy_x
+
                     sz(:,:,:,i,j,k)=sz(:,:,:,i,j,k) &
-                        +(szz(:,:,:,i,j,q))*dummy_z & 
-                        +(syz(:,:,:,i,q,k))*dummy_y & 
-                        +(sxz(:,:,:,q,j,k))*dummy_x 
-             
+                        +(szz(:,:,:,i,j,q))*dummy_z &
+                        +(syz(:,:,:,i,q,k))*dummy_y &
+                        +(sxz(:,:,:,q,j,k))*dummy_x
+
                 ENDDO
 
             ENDDO
@@ -415,8 +415,8 @@ SUBROUTINE ses3d_evolution
     !IF (is_diss==1) THEN
 
     !    DO k=1,nrdiss
-    !        
-    !        ! this is constant for all timesteps 
+    !
+    !        ! this is constant for all timesteps
     !        L(:,:,:,:,:,:) = dt * tau / ( nrdiss * tau_p(k) )
 
     !        Mxx(k,:,:,:,:,:,:)=Mxx(k,:,:,:,:,:,:)-dt*Mxx(k,:,:,:,:,:,:)/tau_p(k) &
@@ -427,13 +427,13 @@ SUBROUTINE ses3d_evolution
 
     !        Mzz(k,:,:,:,:,:,:)=Mzz(k,:,:,:,:,:,:)-dt*Mzz(k,:,:,:,:,:,:)/tau_p(k) &
     !            -L(:,:,:,:,:,:)*ezz(:,:,:,:,:,:)
-    !      
+    !
     !        Mxy(k,:,:,:,:,:,:)=Mxy(k,:,:,:,:,:,:)-dt*Mxy(k,:,:,:,:,:,:)/tau_p(k) &
     !            -L(:,:,:,:,:,:)*exy(:,:,:,:,:,:)
 
     !        Mxz(k,:,:,:,:,:,:)=Mxz(k,:,:,:,:,:,:)-dt*Mxz(k,:,:,:,:,:,:)/tau_p(k) &
     !            -L(:,:,:,:,:,:)*exz(:,:,:,:,:,:)
-    !      
+    !
     !        Myz(k,:,:,:,:,:,:)=Myz(k,:,:,:,:,:,:)-dt*Myz(k,:,:,:,:,:,:)/tau_p(k) &
     !            -L(:,:,:,:,:,:)*eyz(:,:,:,:,:,:)
 

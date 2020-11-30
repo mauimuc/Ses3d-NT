@@ -1,10 +1,10 @@
 !> @example make_homogeneous_model_example.f90
 !!
-!! Example program to generate homogeneous models 
+!! Example program to generate homogeneous models
 !!
 !! @todo  Describe what it does ...
-!! 
-!! Compile simply useing the Makefile:
+!!
+!! Compile simply using the Makefile:
 !!
 !!      make make make_homogeneous_model_example
 !!
@@ -28,14 +28,14 @@ PROGRAM make_isotropic_homogeneous_model_example
         STOP
     END IF
 
-    CALL GET_COMMAND_ARGUMENT(1, fn) 
+    CALL GET_COMMAND_ARGUMENT(1, fn)
     READ(fn, FMT=*) rho
-    CALL GET_COMMAND_ARGUMENT(2, fn) 
+    CALL GET_COMMAND_ARGUMENT(2, fn)
     READ(fn, FMT=*) vs
-    CALL GET_COMMAND_ARGUMENT(3, fn) 
+    CALL GET_COMMAND_ARGUMENT(3, fn)
     READ(fn, FMT=*) vp
 
-    CALL GET_COMMAND_ARGUMENT(4, fn) 
+    CALL GET_COMMAND_ARGUMENT(4, fn)
     OPEN(NEWUNIT=lun, FILE=fn)
         CALL parse_namelist(lun, grid)
     CLOSE(UNIT=lun)
@@ -63,11 +63,11 @@ PROGRAM make_isotropic_homogeneous_model_example
     WRITE(UNIT=lun) param
     CLOSE(UNIT=lun)
 
-END PROGRAM 
+END PROGRAM
 
 
 !> @file
 !! $Date: 2013-11-26 21:39:48 +0100 (Tue, 26 Nov 2013) $
 !! $Author: mauerberger $
 !! $Revision: 817 $
-!! @copyright GNU General Public License version 3 or later 
+!! @copyright GNU General Public License version 3 or later

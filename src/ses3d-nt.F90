@@ -1,10 +1,10 @@
 !> @file
 !! Ses3d-NT - simulation of elastic wave propagation in spherical sections
 !!
-!! (c) by Andreas Fichtner <A.Fichtner@uu.nl>
-!!        Tarje Nissen-Meyer <tarjen@ethz.ch>
-!!        Heiner Igel <igel@geophysik.uni-muenchen.de>
-!!        Stefan Mauerberger <mauerberger@geophysik.uni-muenchen.de>
+!! (c) by Andreas Fichtner
+!!        Tarje Nissen-Meyer
+!!        Heiner Igel
+!!        Stefan Mauerberger
 !!
 !! This program is free software: you can redistribute it and/or modify
 !! under the terms of the GNU General Public License as published by
@@ -26,7 +26,7 @@
 
 
 
-!> Ses3d-NT's main program 
+!> Ses3d-NT's main program
 PROGRAM ses3d_nt
     USE parameters_mod, ONLY : real_kind, fsl, fnl, OUTPUT_UNIT, gpl_phrase, &
                                is_mpi_master_rank, init_my_mpi_real, &
@@ -35,7 +35,7 @@ PROGRAM ses3d_nt
     USE checks_mod, ONLY : file_exists
 ! Line control through pre-processor directive
 #ifndef MPI_INCLUDE
-    ! in case MPI_INCLUDE is NOT set the Fortran mpi module will be used 
+    ! in case MPI_INCLUDE is NOT set the Fortran mpi module will be used
     USE mpi
 #endif
     USE configuration_mod, ONLY : config => configuration, configuration_typ

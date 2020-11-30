@@ -1,10 +1,10 @@
 !> @example make_PREM_model_example.f90
 !!
-!! Example program to generate homogeneous models 
+!! Example program to generate homogeneous models
 !!
 !! @todo Describe what it does ...
-!! 
-!! Compile simply useing the Makefile:
+!!
+!! Compile simply using the Makefile:
 !!
 !!      make make make_PREM_model_example
 !!
@@ -29,7 +29,7 @@ PROGRAM make_PREM_model_example
                                     r(:,:,:,:,:,:)
     CHARACTER(LEN=fnl) :: fn
 
-    ! Check if a command line argument was passed 
+    ! Check if a command line argument was passed
     IF ( COMMAND_ARGUMENT_COUNT() < 1 ) THEN
         WRITE(UNIT=ERROR_UNIT, FMT='(/,A)') 'Missing config file!'
         WRITE(UNIT=ERROR_UNIT, FMT='(A)') 'Usuage: make_PREM_model_exampe &
@@ -37,8 +37,8 @@ PROGRAM make_PREM_model_example
         STOP 1
     END IF
 
-    ! Get filename from 1st passed command line argument 
-    CALL GET_COMMAND_ARGUMENT(1, fn) 
+    ! Get filename from 1st passed command line argument
+    CALL GET_COMMAND_ARGUMENT(1, fn)
 
     ! Parse NAMELIST groups &grid and &model
     OPEN(NEWUNIT=lun, FILE=fn)
@@ -53,10 +53,10 @@ PROGRAM make_PREM_model_example
         STOP 1
     END IF
 
-    ! 
-    WRITE(UNIT=ERROR_UNIT, FMT='(/,"### Generating model PREM ###",/)') 
+    !
+    WRITE(UNIT=ERROR_UNIT, FMT='(/,"### Generating model PREM ###",/)')
 
-    ! Allocate memory 
+    ! Allocate memory
     ! TODO: To save 1/3 of memory consumption calc. mu and lambda on the fly
     ALLOCATE(   rho(grid%nx,grid%ny,grid%nz,grid%lpd+1,grid%lpd+1,grid%lpd+1),&
                  vs(grid%nx,grid%ny,grid%nz,grid%lpd+1,grid%lpd+1,grid%lpd+1),&
@@ -113,4 +113,4 @@ END PROGRAM make_PREM_model_example
 !! $Date: 2013-10-30 16:25:25 +0100 (Wed, 30 Oct 2013) $
 !! $Author: mauerberger $
 !! $Revision: 743 $
-!! @copyright GNU General Public License version 3 or later 
+!! @copyright GNU General Public License version 3 or later

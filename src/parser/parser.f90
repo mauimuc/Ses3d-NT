@@ -1,7 +1,7 @@
 !> @file
 !! Ses3d-NT - simulation of elastic wave propagation in spherical sections
 !!
-!! (c) by Stefan Mauerberger <mauerberger@geophysik.uni-muenchen.de>
+!! (c) by Stefan Mauerberger
 !!
 !! This program is free software: you can redistribute it and/or modify
 !! under the terms of the GNU General Public License as published by
@@ -109,28 +109,28 @@ MODULE parser_mod
     TYPE, EXTENDS(volume_cls) :: grad_typ
     END TYPE
 
-    !> Abstract derived type serving as base-type for parsing output related 
-    !! NAMELISTs. There is a subroutine bcast_mod::bcast_output_cls() which 
+    !> Abstract derived type serving as base-type for parsing output related
+    !! NAMELISTs. There is a subroutine bcast_mod::bcast_output_cls() which
     !! distributes values amongst all MPI ranks.
     TYPE, ABSTRACT, EXTENDS(volume_cls) :: output_cls
         LOGICAL :: override
         CHARACTER(LEN=fnl) :: prefix
     END TYPE
-    
-    !> Derived type used for parsing &input-NAMELISTs. The corresponding 
+
+    !> Derived type used for parsing &input-NAMELISTs. The corresponding
     !! subroutine which actually parses the NAMELISTs is input_raw_parser().
     !!
     !! @todo Actually override is not needed
     TYPE, EXTENDS(output_cls) :: input_raw_typ
     END TYPE
 
-    !> Derived type used for parsing &output_netcdf-NAMELISTs. The 
-    !! corresponding parser subroutine is output_netcdf_parser(). The 
+    !> Derived type used for parsing &output_netcdf-NAMELISTs. The
+    !! corresponding parser subroutine is output_netcdf_parser(). The
     !! subroutine for distributing values is bcast_mod::bcast_output_cls()
     TYPE, EXTENDS(output_cls) :: output_netcdf_typ
     END TYPE
 
-    !> Derived type used for parsing &output_raw-NAMELISTs. The 
+    !> Derived type used for parsing &output_raw-NAMELISTs. The
     !! corresponding parser subroutine is output_netcdf_parser(). The
     !! subroutine for distributing values is bcast_mod::bcast_output_cls()
     TYPE, EXTENDS(output_cls) :: output_raw_typ

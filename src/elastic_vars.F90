@@ -1,6 +1,6 @@
 ! SES3D - simulation of elastic wave propagation in spherical sections
 
-! (c) by Stefan Mauerberger <mauerberger@geophysik.uni-muenchen.de>
+! (c) by Stefan Mauerberger
 
 ! This program is free software: you can redistribute it and/or modify
 ! under the terms of the GNU General Public License as published by
