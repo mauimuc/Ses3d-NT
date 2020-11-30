@@ -1,8 +1,7 @@
 Visualization Suggestions
 =========================
 
-At this section we provide you an example how to visualize Ses3d-NT’s output and
-visualization requirements for your Debian based Systems.
+This section provides an example how to visualize Ses3d-NT’s output.
 
 Visualization Requirements
 ==========================
@@ -66,7 +65,7 @@ Visualization of the results
 ============================
 
 The actual data for visualization can be created by following the instructions
-of the L'Aquila toy-example in `GETTING_STARTED.md`. As the result you obtain
+of the L'Aquila toy-example in GETTING_STARTED.md . As the result you obtain
 SAC and NetCDF file formats data in folder:`ses3d-nt/examples/MESS_2013/`.
 
 Now that you have created the data you also might to take a look on it. There

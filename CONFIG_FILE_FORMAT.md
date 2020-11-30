@@ -1,27 +1,27 @@
 Config file format
 ==================
 
-Here we provide you a short introduction in writing a config input file for
-Ses3d-NT. The `config` file is separated into groups using 'Fortran NAMELISTs'.
-Each segment starts with the '&' character (ampersand) followed by a group-
-keyword, ie. &model. Each group ends with the '/' character (slash). A group
+Here we provide you a short introduction in writing a configuration file for
+Ses3d-NT. The `config` file is separated into groups using Fortran NAMELISTs.
+Each segment starts with the `&` character (ampersand) followed by a group-
+keyword, i.e. `&model`. Each group ends with the `/` character (slash). A group
 encloses a sequence of parameter names along with their values. Admissible
 groups with corresponding parameter names and values are listed in the following.
 
-Remark:
-Comments are indicated by the !-sign. A Value must not be followed by a !-sign.
+> Remark:
+Comments are indicated by the `!`-sign. A Value must not be followed by a !-sign.
 
 
 Grid
 ----
 
-In group 'grid' the simulation's extends are defined. 'nx', 'ny' and 'nz' are
-specifying the total number of elements in each direction. 'lpd' defines the
-degree of the Lagrange polynomials. 'pml' width of the tapering boundary region
+In group `&grid` the simulation's extends are defined. `nx`, `ny` and `nz` are
+specifying the total number of elements in each direction. `lpd` defines the
+degree of the Lagrange polynomials. `pml` width of the tapering boundary region
 
     &grid
         nx = 16 ! Number of elements in theta-direction
-        ny = 26 ! Number of elements in phi-direction 
+        ny = 26 ! Number of elements in phi-direction
         nz = 11 ! Number of elements in r-direction
         lpd = 4 ! Lagrange-Polynomial degree
         pml = 3 ! Width of relaxing boundaries (elements)
@@ -35,7 +35,7 @@ The group 'time' starts the segment specifying time evolution.
 
     &time
         nt = 700 ! Number of time-steps
-        dt = 0.75 ! Time-increment 
+        dt = 0.75 ! Time-increment
         date_time = 2011, 2, 24, 0, 10, 15, 0, 0 ! yyyy, mm, dd, dm_GMT, h, m, s, ms
     /
 Parameters 'nt' and 'dt' are mandatory. The optional parameter 'date_time'
@@ -97,9 +97,9 @@ be defined by its position, time-evolution and either a vector specifying a
 monopole force or a moment -tensor for double couples.
 
     &source
-        lat = 
-        lon = 
-        depth = 
+        lat =
+        lon =
+        depth =
         wavelet = 'RICKER', onset = 150.0, width = 120.0
         !direction = 1.0 0.0 0.0 ! x, y, z
         moment_tensor = 0.0 0.0 0.0 0.0 1.0e19 0.0
@@ -140,12 +140,12 @@ specified location.
 
     &receiver
         network = 'GRSN' ! optional, default is 'Sed3d-NT'
-        station = 'XX22abc' 
+        station = 'XX22abc'
         location = 'XYZ' ! optional
         lat = 0.0
         lon = 12.5
         depth = 0.0
-        attributes = 'vx', 'vy', 'vz' ! at least one 
+        attributes = 'vx', 'vy', 'vz' ! at least one
         override = .FALSE. ! optional, default is .FALSE.
     /
 'network', 'station', 'location' can be specified with up to 8 ASCII characters
@@ -163,7 +163,7 @@ time-steps are processed.
 
     &output_raw
         timestep_start = 0 ! optional, default is 0
-        timestep_increment = 10 
+        timestep_increment = 10
         timestep_stop = 700 ! optional, default is nt
         override = .TRUE. ! optional, default is .FALSE.
         attributes = 'vx', 'vy', 'vz'
@@ -172,7 +172,7 @@ time-steps are processed.
 
     &ouput_netcdf
         timestep_start = 0 ! optional, default is 0
-        timestep_increment = 10 
+        timestep_increment = 10
         timestep_stop = 1000 ! optional, default is nt
         attributes = 'vx', 'vy', 'vz'
         prefix = './'
