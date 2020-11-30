@@ -76,27 +76,14 @@ MODULE parameters_mod
     INTEGER, PUBLIC, PROTECTED :: my_mpi_integer = -1
     PUBLIC :: init_my_mpi_integer
 
-#ifdef REVISION
     !> String printed on program start.
-    !! REVISION is inserted by the CPP preprocessor.
     CHARACTER(LEN=*), PARAMETER, PUBLIC :: gpl_phrase = &
-        "Ses3d-NT revision " // REVISION // ACHAR(10) // &
+        "Ses3d-NT " // NEW_LINE('a') // &
         "Copyright (C) 2013 Stefan Mauerberger &
-        &<mauerberger@geophysik.uni-muenchen.de>" // ACHAR(10) // &
+        &<mauerberger@geophysik.uni-muenchen.de>" // NEW_LINE('a') // &
         "This program comes with ABSOLUTELY NO WARRANTY. It is free software, &
         &and you are welcome to modify and redistribute it under the terms of &
         &GNU GPL version 3 or later. "
-#else
-    !> String printed on program start.
-    !! Without having the preprocessor macro REVISION set.
-    CHARACTER(LEN=*), PARAMETER, PUBLIC :: gpl_phrase = &
-        "Ses3d-NT revision unknown" // ACHAR(10) // &
-        "Copyright (C) 2013 Stefan Mauerberger &
-        &<mauerberger@geophysik.uni-muenchen.de>" // ACHAR(10) // &
-        "This program comes with ABSOLUTELY NO WARRANTY. It is free software, &
-        &and you are welcome to modify and redistribute it under the terms of &
-        &GNU GPL version 3 or later. "
-#endif
 
     !> Specifies the MPI master rank
     INTEGER, PARAMETER, PUBLIC :: mpi_master_rank = 0
@@ -113,9 +100,9 @@ MODULE parameters_mod
 CONTAINS
 
     !> This subroutine is ought to initialize parameters_mod::my_mpi_real as
-    !! protected integer. 
+    !! protected integer.
     !!
-    !! This is necessary to guarantee the same floating-point representations 
+    !! This is necessary to guarantee the same floating-point representations
     !! in both Fortran and MPI.
     !!
     !! @exception MPI is not initialized
@@ -164,9 +151,9 @@ CONTAINS
 
 
     !> This subroutine is to initialize parameters_mod::my_mpi_integer as
-    !! protected integer. 
+    !! protected integer.
     !!
-    !! This is necessary to guarantee the same integer representations in both 
+    !! This is necessary to guarantee the same integer representations in both
     !! Fortran and MPI.
     !!
     !! @exception MPI is not initialized

@@ -2,6 +2,7 @@
 # | SES3D-Makefile |
 # |================|
 
+# FIXME: Directories and sub-directories are not created if needed
 # binaries will stored here
 BINDIR=../bin/
 # object files will stored here
@@ -17,10 +18,10 @@ endif
 
 
 ### GCC ###
-# Fortran module files will stored here
+# Fortran module files will be stored here
 MDIR=-J $(MODDIR)
 ## compiler flags, e.g. -I<include dir> if you have headers in a nonstandard directory
-#FFLAGS+=-I/local/mauerberger/local/include
+#FFLAGS+=-I~/.local/include
 # flags for maximum performance
 FFLAGS+=-O3
 FFLAGS+=-mtune=native
@@ -28,15 +29,6 @@ FFLAGS+=-ffast-math -funroll-loops -ftree-vectorize
 # flags for debugging
 #FFLAGS+= -g -Wall -std=f2008
 #FFLAGS+= -fcheck=all -pedantic
-
-## supermuc thin nodes (sandy-bridge)
-#FFLAGS+=-march=corei7-avx -mtune=corei7-avx
-## UV (Westmere EX)
-#FFLAGS+=-march=corei7 -mtune=corei7
-## mmp1 AMD
-#FFLAGS+=-march=corei7-avx -mtune=corei7-avx
-## supermuc fat-nodes (Westmere EX)
-#FFLAGS+=-march=corei7 -mtune=corei7
 
 
 #### NAG ###
@@ -65,20 +57,13 @@ FFLAGS+=-ffast-math -funroll-loops -ftree-vectorize
 
 
 # Linker flags, e.g. -L<lib dir> if you have libraries in a nonstandard directory
-#LDFLAGS+=-L/local/mauerberger/local/lib
+#LDFLAGS+=-L~/.local/lib
 
 
-## libraries to pass to the linker, e.g. -l<library>
+## libraries to be passed to the linker, e.g. -l<library>
 # Compiles with netCDF libraries
-#LIBS+=-lnetcdff -lnetcdf -lnetcdf
+#LIBS+=-lnetcdff -lnetcdf
 
-
-## Retrieve current revision number from SVN
-REVISION=$(shell svn info | grep -i "Last Changed Rev" | cut -d ':' -f 2 )
-# In case the above command fails set REVISION to 'N/A'
-ifeq "$(strip ${REVISION})" ""
-    REVISION=N/A
-endif
 
 
 # ============================================================================
@@ -137,11 +122,6 @@ OBJ = $(OBJDIR)misc/error_mod.o \
 .PHONY: ses3d-nt
 ses3d-nt: $(BINDIR)ses3d-nt
 
-## Explicit rule to build parameters.F90 including the current revision number
-# This MUST NOT be included in actual tags
-${OBJDIR}parameters.o: ${OBJDIR}misc/error_mod.o
-	$(MPI_FC) -DREVISION=\'$(strip ${REVISION})\' $(FFLAGS) -I $(MODDIR) $(MDIR) $(CPPFLAGS) -c parameters.F90 -o $@ $(LIBS)
-
 
 $(BINDIR)ses3d-nt: $(OBJ) ses3d-nt.F90
 	$(MPI_FC) $(FFLAGS) $(CPPFLAGS) -I $(MODDIR) $^ -o $@ $(LDFLAGS) $(LIBS)
@@ -151,9 +131,3 @@ $(BINDIR)ses3d-nt: $(OBJ) ses3d-nt.F90
 clean:
 	rm -f $(MODDIR)*.mod
 	rm -f $(OBJ)
-
-.PHONY: auto_partitionize
-auto_partitionize: $(BINDIR)auto_partitionize
-
-$(BINDIR)auto_partitionize: $(OBJDIR)parameters.o $(OBJDIR)misc/error.o $(OBJDIR)misc/string_utilities_mod.o $(OBJDIR)config/grid.o auto_partitionize.f90
-	$(MPI_FC) $(FFLAGS) $(CPPFLAGS) -I $(MODDIR) $^ -o $@ $(LDFLAGS) $(LIBS)
