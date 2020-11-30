@@ -1,0 +1,16 @@
+name: CI
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: dependencies
+        run: sudo apt-get install make gfortran openmpi-bin libopenmpi-dev
+
+      - name: build
+        run: cd $GITHUB_WORKSPACE/src && make
