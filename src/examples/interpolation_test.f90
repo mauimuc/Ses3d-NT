@@ -1,12 +1,12 @@
 !> @example interpolation_test.f90
 !!
-!! Example program which tests procedures for Lagrange interpolation of module 
+!! Example program which tests procedures for Lagrange interpolation of module
 !! interpolation_mod.
 !! * Interpolation of constant function
 !! * Interpolation of linear function
 !! * Interpolation of sin(x) function
 !!
-!! Compile simply using the Makefile `make interpolation_test` and run the 
+!! Compile simply using the Makefile `make interpolation_test` and run the
 !! program by executing `./interpolation_test`. All tests have to pass through.
 PROGRAM interpolation_test
     USE, INTRINSIC :: ISO_FORTRAN_ENV, ONLY : OUTPUT_UNIT, ERROR_UNIT
@@ -21,7 +21,7 @@ PROGRAM interpolation_test
     REAL(rk) :: e
 
 
-    ! Interpolate constant function 
+    ! Interpolate constant function
     WRITE(UNIT=OUTPUT_UNIT, FMT='(/, "Interpolation of constant function ", /)')
 
     knots = [-1.0,0.0,1.0]
@@ -29,24 +29,24 @@ PROGRAM interpolation_test
     weights = calc_weights(knots)
 
     n = 50
-    x = REAL([(i, i=-n, n)], rk)
+    x = [(REAL(i, rk), i=-n, n)]
     n = SIZE(x)
     ! Add random perturbations to x
     x(2:n-1) = x(2:n-1) + random(n-2)
-    x(:) = x/MAXVAL(ABS(x)) 
+    x(:) = x/MAXVAL(ABS(x))
 
     f_ = [(SUM(calc_lagrange_polynomial(x(i),knots,weights)*f), i=1, SIZE(x))]
 
     l = ALL( f_(:)/const(x(:))-1.0 < 0.01 )
 
-    ! Average interpolation error 
+    ! Average interpolation error
     e = SUM(ABS(f_(:)/const(x(:))-1.0))/n
 
     CALL check( l, "Constant; error < 0.1%")
 
 
 
-    ! Interpolate linear function 
+    ! Interpolate linear function
     WRITE(UNIT=OUTPUT_UNIT, FMT='(/, "Interpolation of linear function ", /)')
 
     knots = [-1.0, 1.0]
@@ -54,21 +54,21 @@ PROGRAM interpolation_test
     weights = calc_weights(knots)
 
     n = 3
-    x = REAL([ (i, i=-n, n) ],rk)
+    x = [ (REAL(i,rk), i=-n, n) ]
     n = SIZE(x)
     ! Add random perturbations to x
     x(2:n-1) = x(2:n-1) + random(n-2)
-    x(:) = x/MAXVAL(ABS(x)) 
+    x(:) = x/MAXVAL(ABS(x))
 
     f_ = [(SUM(calc_lagrange_polynomial(x(i),knots,weights)*f), i=1, SIZE(x))]
 
     l = ALL( f_(:)/const(x(:))-1.0 < 0.01 )
 
-    ! Average interpolation error 
+    ! Average interpolation error
     e = SUM(ABS(f_(:)/const(x(:))-1.0))/n
 
     CALL check( l, "linear; error < 0.1%")
-    
+
 
 
     ! Interpolate sin
@@ -80,7 +80,7 @@ PROGRAM interpolation_test
     weights = calc_weights(knots)
 
     n = 24
-    x = REAL([(i, i=-n, n)],rk)
+    x = [(REAL(i, rk), i=-n, n)]
     n = SIZE(x)
     ! Add random perturbations to x
     x(2:n-1) = x(2:n-1) + random(n-2)
@@ -90,11 +90,11 @@ PROGRAM interpolation_test
 
     l = ALL( f_(:)/const(x(:))-1.0 < 0.01 )
 
-    ! Average interpolation error 
+    ! Average interpolation error
     e = SUM(ABS(f_(:)/const(x(:))-1.0))/n
 
     CALL check( l, "sin(x); error < 0.1%")
-    
+
 
 
 CONTAINS
@@ -102,13 +102,13 @@ CONTAINS
     REAL(rk) ELEMENTAL FUNCTION const(x)
         REAL(rk), INTENT(IN) :: x
         const = 1.0_rk
-    END FUNCTION 
-    
+    END FUNCTION
+
     REAL(rk) ELEMENTAL FUNCTION linear(x)
         REAL(rk), INTENT(IN) :: x
         linear = x
-    END FUNCTION 
-    
+    END FUNCTION
+
     SUBROUTINE check(l, s)
         LOGICAL :: l
         CHARACTER(LEN=*) :: s
@@ -124,12 +124,13 @@ CONTAINS
 
     !> Returns an array of s random values in the range of [-0.5:0.5]
     FUNCTION random(s) RESULT(r)
-        ! Passed dummy arguments  
+        ! Passed dummy arguments
+        implicit none
         INTEGER, INTENT(IN) :: s
         ! Return value
         REAL(rk) :: r(s)
         ! Local variables
-        INTEGER :: lun
+        INTEGER :: lun, n
         INTEGER, ALLOCATABLE :: seed(:)
 
         ! Obtain size of random seed
@@ -137,20 +138,20 @@ CONTAINS
         ALLOCATE(seed(n))
         ! Invoke the OS random number generator to get a random seed
         OPEN(NEWUNIT=lun, FILE="/dev/urandom", ACCESS="stream", &
-             FORM="unformatted", ACTION="read", STATUS="old" )
+             FORM="unformatted")!, ACTION="read", STATUS="old" )
         READ(UNIT=lun) seed
         CLOSE(UNIT=lun)
 
         ! Put a random seed
         CALL RANDOM_SEED(PUT=seed)
 
-        ! Obtain random values for each element 
+        ! Obtain random values for each element
         CALL RANDOM_NUMBER(r(:))
 
-        ! Scale to range -0.5 to 0.5 
+        ! Scale to range -0.5 to 0.5
         r = r - 0.5_rk
 
-    END FUNCTION 
+    END FUNCTION
 
 END PROGRAM interpolation_test
 
