@@ -16,10 +16,10 @@ jobs:
       - name: doxygen
         run: cd $GITHUB_WORKSPACE/src && doxygen
 
-      - name: build
-        run: |
-          cd $GITHUB_WORKSPACE/src && make
-          cd $GITHUB_WORKSPACE/src/examples && make
+      - name: build Ses3d-NT
+        run: cd $GITHUB_WORKSPACE/src && make
 
-      - name: test
-        run: for test in $GITHUB_WORKSPACE/src/examples/*test; do ./$test; done
+      - name: build tests and execute
+        run: |
+          cd $GITHUB_WORKSPACE/src/examples && make
+          for test in $GITHUB_WORKSPACE/src/examples/*test; do ./$test; done
