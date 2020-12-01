@@ -7,10 +7,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - name: checkout
+        uses: actions/checkout@v2
 
       - name: dependencies
-        run: sudo apt-get install make gfortran openmpi-bin libopenmpi-dev
+        run: sudo apt-get install make gfortran libopenmpi-dev doxygen
+
+      - name: doxygen
+        run: cd $GITHUB_WORKSPACE/src && doxygen
 
       - name: build
-        run: cd $GITHUB_WORKSPACE/src && make
+        run: |
+          cd $GITHUB_WORKSPACE/src && make
+          cd $GITHUB_WORKSPACE/src/examples && make
+
+      - name: test
+        run: for test in $GITHUB_WORKSPACE/src/examples/*test; do ./$test; done
