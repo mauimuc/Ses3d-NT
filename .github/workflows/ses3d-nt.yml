@@ -22,4 +22,4 @@ jobs:
       - name: build tests and execute
         run: |
           cd $GITHUB_WORKSPACE/src/examples && make
-          for test in $GITHUB_WORKSPACE/src/examples/*test; do ./$test; done
+          for test in $GITHUB_WORKSPACE/src/examples/*test; do $test; done
