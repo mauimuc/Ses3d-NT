@@ -1,0 +1,6 @@
+<map id="parser_mod::output_netcdf_typ" name="parser_mod::output_netcdf_typ">
+<area shape="rect" id="node1" title="Derived type used for parsing &amp;output_netcdf&#45;NAMELISTs. The corresponding parser subroutine is output..." alt="" coords="23,229,158,271"/>
+<area shape="rect" id="node2" href="$structparser__mod_1_1output__cls.html" title="Abstract derived type serving as base&#45;type for parsing output related NAMELISTs. There is a subroutin..." alt="" coords="11,155,170,181"/>
+<area shape="rect" id="node3" href="$structparser__mod_1_1volume__cls.html" title=" " alt="" coords="9,80,173,107"/>
+<area shape="rect" id="node4" href="$structparser__mod_1_1namelist__cls.html" title=" " alt="" coords="5,5,176,32"/>
+</map>

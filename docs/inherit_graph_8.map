@@ -1,0 +1,18 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$structparser__mod_1_1namelist__cls.html" title=" " alt="" coords="5,183,176,209"/>
+<area shape="rect" id="node2" href="$structparser__mod_1_1general__typ.html" title=" " alt="" coords="226,5,391,32"/>
+<area shape="rect" id="node3" href="$structparser__mod_1_1grid__typ.html" title=" " alt="" coords="237,56,381,83"/>
+<area shape="rect" id="node4" href="$structparser__mod_1_1model__typ.html" title=" " alt="" coords="229,107,388,133"/>
+<area shape="rect" id="node5" href="$structparser__mod_1_1receiver__typ.html" title=" " alt="" coords="224,157,393,184"/>
+<area shape="rect" id="node6" href="$structparser__mod_1_1source__cls.html" title=" " alt="" coords="228,208,389,235"/>
+<area shape="rect" id="node9" href="$structparser__mod_1_1source__sac__typ.html" title=" " alt="" coords="240,259,377,301"/>
+<area shape="rect" id="node10" href="$structparser__mod_1_1time__typ.html" title=" " alt="" coords="235,325,383,352"/>
+<area shape="rect" id="node11" href="$structparser__mod_1_1volume__cls.html" title=" " alt="" coords="227,376,391,403"/>
+<area shape="rect" id="node7" href="$structparser__mod_1_1source__mt__typ.html" title=" " alt="" coords="452,166,589,207"/>
+<area shape="rect" id="node8" href="$structparser__mod_1_1source__sf__typ.html" title=" " alt="" coords="452,231,589,273"/>
+<area shape="rect" id="node12" href="$structparser__mod_1_1grad__typ.html" title=" " alt="" coords="447,328,595,355"/>
+<area shape="rect" id="node13" href="$structparser__mod_1_1output__cls.html" title="Abstract derived type serving as base&#45;type for parsing output related NAMELISTs. There is a subroutin..." alt="" coords="441,379,600,405"/>
+<area shape="rect" id="node14" href="$structparser__mod_1_1input__raw__typ.html" title="Derived type used for parsing &amp;input&#45;NAMELISTs. The corresponding subroutine which actually parses th..." alt="" coords="648,320,827,347"/>
+<area shape="rect" id="node15" href="$structparser__mod_1_1output__netcdf__typ.html" title="Derived type used for parsing &amp;output_netcdf&#45;NAMELISTs. The corresponding parser subroutine is output..." alt="" coords="670,371,805,413"/>
+<area shape="rect" id="node16" href="$structparser__mod_1_1output__raw__typ.html" title="Derived type used for parsing &amp;output_raw&#45;NAMELISTs. The corresponding parser subroutine is output_ne..." alt="" coords="670,437,805,478"/>
+</map>

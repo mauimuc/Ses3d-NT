@@ -1,0 +1,129 @@
+\_form#0=463x41:\[ \mathrm{rot}(\mathbf v)_\theta = \frac{1}{r} \left( \frac{1}{\sin\theta} \frac{\partial \mathrm v_r}{\partial \phi} - \frac{\partial}{\partial r} \left( r \mathrm v_\phi \right) \right) = \left( \frac{1}{r\sin\theta} \frac{\partial \mathrm v_r}{\partial \phi} - \frac{\mathrm v_\phi}{r} - \frac{\partial \mathrm v_\phi}{\partial r} \right) \]
+\_form#1=67x24:$ \dot\epsilon_{r\phi} = \frac{\partial \mathrm v_r}{\partial \phi} $
+\_form#2=67x24:$ \dot\epsilon_{\phi r} = \frac{\partial \mathrm v_\phi}{\partial r} $
+\_form#3=200x36:\[ \mathrm{rot}(\mathbf v)_\theta = \frac{\dot\epsilon_{r \phi}}{r\sin\theta} - \frac{\mathrm v_\phi}{r} - \dot\epsilon_{\phi r} \]
+\_form#4=372x41:\[ \mathrm{rot}(\mathbf v)_\phi = \frac{1}{r}\left( \frac{\partial}{\partial r} \left( r \mathrm v_\theta \right) - \frac{\partial \mathrm v_r}{\partial \theta} \right) = \frac{\mathrm v_\theta}{r} + \frac{\partial \mathrm v_\theta}{\partial r} - \frac{1}{r} \frac{\partial \mathrm v_r}{\partial \theta} \]
+\_form#5=65x23:$ \dot\epsilon_{r \theta} = \frac{\partial \mathrm v_r}{\partial \theta} $
+\_form#6=65x23:$ \dot\epsilon_{\theta r} = \frac{\partial \mathrm v_\theta}{\partial r} $
+\_form#7=177x36:\[ \mathrm{rot}(\mathbf v)_\phi = \frac{\mathrm v_\theta}{r} + \dot\epsilon_{\theta r} - \frac{\dot\epsilon_{r \theta}}{r} \]
+\_form#8=527x41:\[ \mathrm{rot}(\mathbf v)_r = \frac{1}{r\sin\theta} \left(\frac{\partial}{\partial \theta} \left( \mathrm v_\phi\sin\theta \right) - \frac{\partial \mathrm v_\theta}{\partial \phi}\right) = \frac{1}{r} \left( \frac{\partial \mathrm v_\phi}{\partial \theta} + \mathrm v_\phi \, \cot\theta - \frac{1}{\sin\theta}\frac{\partial \mathrm v_\theta}{\partial \phi} \right) \]
+\_form#9=68x24:$ \dot\epsilon_{\phi \theta} = \frac{\partial \mathrm v_\phi}{\partial \theta} $
+\_form#10=67x24:$ \dot\epsilon_{\theta \phi} = \frac{\partial \mathrm v_\theta}{\partial \phi} $
+\_form#11=258x41:\[ \mathrm{rot}(\mathbf v)_r = \frac{1}{r} \left( \dot\epsilon_{\phi \theta} + \mathrm v_\phi \, \cot\theta - \frac{\dot\epsilon_{\theta \phi}}{\sin\theta} \right) \]
+\_form#12=15x11:$e_\vartheta$
+\_form#13=16x13:$e_\varphi$
+\_form#14=13x11:$e_r$
+\_form#15=180x39:\[f(\vartheta,\varphi,r) = \sum_{ijk} v_{ijk}*f_{ijk} \]
+\_form#16=10x8:$v$
+\_form#17=10x16:$f$
+\_form#18=54x18:$(\vartheta, \varphi, r)$
+\_form#19=174x18:$ [-1,1]\times [-1,1]\times [-1,1]$
+\_form#20=36x16:$i_{\vartheta,loc}$
+\_form#21=11x13:$\vartheta$
+\_form#22=475x44:\begin{eqnarray*} std_{\vartheta}: [\vartheta_{loc,min},\vartheta_{loc,max}] & \rightarrow & [-1,1] \\ \vartheta & \mapsto & 2 \big ( (\vartheta-\vartheta_{loc,min})/ \Delta\vartheta_{elm} - i_{\vartheta,loc} \big ) - 1 \end{eqnarray*}
+\_form#23=16x10:$_{loc}$
+\_form#24=44x16:$\Delta\vartheta_{elm}$
+\_form#25=125x18:$[\vartheta_{loc,min}, \vartheta_{loc,max}]$
+\_form#26=36x16:$i_{\varphi,loc}$
+\_form#27=10x11:$\varphi$
+\_form#28=481x44:\begin{eqnarray*} std_{\varphi}: [\varphi_{loc,min},\varphi_{loc,max}] & \rightarrow & [-1,1] \\ \varphi & \mapsto & 2 \big ( (\varphi-\varphi_{loc,min})/ \Delta\varphi_{elm} - i_{\varphi,loc} \big ) - 1 \end{eqnarray*}
+\_form#29=46x16:$\Delta\varphi_{elm}$
+\_form#30=128x18:$[\varphi_{loc,min}, \varphi_{loc,max}]$
+\_form#31=50x18:$(\vartheta, r , r)$
+\_form#32=33x16:$i_{r,loc}$
+\_form#33=10x8:$r$
+\_form#34=463x44:\begin{eqnarray*} std_{r}: [ r_{loc,min}, r_{loc,max}] & \rightarrow & [-1,1] \\ r & \mapsto & 2 \big ( (r_{loc,max}-r)/ \Delta r_{elm} - i_{r,loc} \big ) - 1 \end{eqnarray*}
+\_form#35=42x16:$\Delta r _{elm}$
+\_form#36=10x8:$ r $
+\_form#37=120x18:$[ r_{loc,min}, r_{loc,max}]$
+\_form#38=54x18:$(\vartheta, \varphi, r) $
+\_form#39=364x18:$ \vartheta_{glb,min} + w_{elm} \Delta\vartheta_{elm} \leq \vartheta \leq \vartheta_{glb,max} - w_{elm} \Delta\vartheta_{elm} $
+\_form#40=367x18:$ \varphi_{glb,min} + w_{elm} \Delta\varphi_{elm} \leq \varphi \leq \varphi_{glb,max} - w_{elm} \Delta\varphi_{elm} $
+\_form#41=180x18:$ r_{glb,min} + w_{elm} \Delta r_{elm} \leq r $
+\_form#42=34x11:$w_{elm}$
+\_form#43=18x11:$_{glb}$
+\_form#44=21x10:$_{elm}$
+\_form#45=171x18:$ \vartheta_{glb,min} < \vartheta < \vartheta_{glb,max}) $
+\_form#46=172x18:$ \varphi_{glb,min} < \varphi < \varphi_{glb,max}) $
+\_form#47=164x18:$ r_{glb,min} < r \leq r_{glb,max}) $
+\_form#48=11x13:${\vartheta}$
+\_form#49=10x11:${\varphi}$
+\_form#50=10x8:${r}$
+\_form#51=164x18:$ \vartheta_{loc,min} < \vartheta \leq \vartheta_{loc,max} $
+\_form#52=166x16:$ \varphi_{loc,min} < \varphi \leq \varphi_{loc,max} $
+\_form#53=158x16:$ r_{loc,min} < r \leq r_{loc,max} $
+\_form#54=20x13:$loc$
+\_form#55=86x13:$ x_{loc,max} - x $
+\_form#56=70x23:$ \frac{x_{loc,max} - x}{\Delta x_{elm}} $
+\_form#57=151x31:$ {\mathrm FLOOR}\left( \frac{x_{loc,max} - x}{\Delta x_{elm}}\right) $
+\_form#58=206x31:$ nx_{loc} - {\mathrm FLOOR}\left( \frac{x_{loc,max} - x}{\Delta x_{elm}}\right) $
+\_form#59=20x8:$nx$
+\_form#60=10x8:$x$
+\_form#61=85x13:$ y_{loc,max} - y $
+\_form#62=68x23:$ \frac{y_{loc,max} - y}{\Delta y_{elm}} $
+\_form#63=150x31:$ {\mathrm FLOOR}\left( \frac{y_{loc,max} - y}{\Delta y_{elm}}\right) $
+\_form#64=205x31:$ ny_{loc} - {\mathrm FLOOR}\left( \frac{y_{loc,max} - y}{\Delta y_{elm}}\right) $
+\_form#65=20x11:$ny$
+\_form#66=10x11:$y$
+\_form#67=83x13:$ z_{loc,max} - z $
+\_form#68=67x23:$ \frac{z_{loc,max} - z}{\Delta z_{elm}} $
+\_form#69=150x31:$ {\mathrm FLOOR}\left( \frac{z_{loc,max} - z}{\Delta z_{elm}}\right) $
+\_form#70=20x13:$ loc $
+\_form#71=8x8:$z$
+\_form#72=172x39:\[\vartheta = \sum_{ijk} v_{ijk}*\vartheta_{e_\vartheta e_\varphi e_r,ijk} \]
+\_form#73=7x8:$e$
+\_form#74=174x39:\[\varphi = \sum_{ijk} v_{ijk}*\varphi_{e_\vartheta e_\varphi e_r,ijk} \]
+\_form#75=167x39:\[r = \sum_{ijk} v_{ijk}*r_{e_\vartheta e_\varphi e_r,ijk} \]
+\_form#76=60x18:$ \theta \in [0,\pi]$
+\_form#77=99x18:$ \phi \in [-2\pi:2\pi] $
+\_form#78=98x18:$ r \in [0:r_{earth}]$
+\_form#79=42x11:$n_{theta}$
+\_form#80=29x13:$n_{phi}$
+\_form#81=18x11:$n_r$
+\_form#82=21x13:$ x_{ij} $
+\_form#83=91x18:$ [x_{min} : x_{max}] $
+\_form#84=7x11:$ i $
+\_form#85=89x18:$ i \in \{1 \dots N\} $
+\_form#86=159x18:$ \Delta = (x_{max} - x_{min})/N $
+\_form#87=8x15:$ j $
+\_form#88=99x18:$ j \in \{0 \dots lpd\} $
+\_form#89=99x13:$ x_{i,lpd} = x_{i+1,0} $
+\_form#90=102x18:$ (elms,lpd+1) $
+\_form#91=570x23:\[ \theta^{3d}_{ikmjln} = \theta^{1d}_{ij} \;\;\; \text{for} \; i \in \{ 1 \dots e_\theta \}, \; k \in \{ 1 \dots e_\phi \}, \; m \in \{ 1 \dots e_r \}, \; j,l,n \in \{0\dots lpd \} \]
+\_form#92=8x13:$ \theta $
+\_form#93=10x16:$ \phi $
+\_form#94=242x18:$ (e_\theta,e_\phi,e_r,lpd+1,lpd+1,lpd+1) $
+\_form#95=575x23:\[ \phi^{3d}_{ikmjln} = \phi^{1d}_{ij} \;\;\; \text{for} \; i \in \{ 1 \dots e_\theta \}, \; k \in \{ 1 \dots e_\phi \}, \; m \in \{ 1 \dots e_r \}, \; j,l,n \in \{0\dots lpd \} \]
+\_form#96=582x23:\[ r^{3d}_{ikmjln} = r^{1d}_{ij} \;\;\; \text{with} \; i \in \{ 1 \dots e_\theta \}, \; k \in \{ 1 \dots e_\phi \}, \; m \in \{ 1 \dots e_r \}, \; j,l,n \in \{0\dots lpd \} \]
+\_form#97=200x23:\[ t(\mathbf x) \approx \exp^{-\alpha x^2} \;\;\; \text{for} \; x \in \partial\Omega \]
+\_form#98=42x15:$N+1$
+\_form#99=42x13:$N-1$
+\_form#100=44x18:$P_N(x)$
+\_form#101=15x13:$N$
+\_form#102=50x18:$[-1:1]$
+\_form#103=242x21:\[ (1-x_i^2) \, \partial_x \text P_N(x_i) = 0 \;\;\; i \in 0 \dots N \]
+\_form#104=15x11:$x_i$
+\_form#105=18x11:$w_i$
+\_form#106=382x42:\[ w_i = \int_{-1}^1 \ell^N_i(x) \; \mathrm dx = \frac{2}{N (N + 1)} {P_N(x_i)}^{-2} \;\;\; i \in 0 \dots N \]
+\_form#107=41x20:$\ell^N_i(x)$
+\_form#108=7x11:$i$
+\_form#109=132x49:\[ f(x) \approx \sum_{i=0}^N f_i \ell^N_i(x) \]
+\_form#110=70x18:$f_i=f(x_i)$
+\_form#111=241x55:\[ w_i = \left ( \prod_{i=0}^{N} (x_j-x_i) \right )^{-1} \;\;\; \text{for} \; i \neq j \]
+\_form#112=70x18:$[x_0 \dots x_N]$
+\_form#113=128x20:$(\ell_0^N(x), \dots, \ell_N^N(x)) $
+\_form#114=312x163:\begin{align*} \ell^N_j(x) :&= \prod_{i=0}^{N} \frac{x-x_i}{x_j-x_i} \;\;\;\text{for}\; i \neq j \\ & = \frac{1}{w_j} \prod_{i=0}^{N} (x-x_i) \;\;\;\text{for}\; i \neq j \\ & = \frac{1}{w_j} \; \frac{1}{x-x_j} \prod_{i=0}^{N} (x-x_i) \;\;\;\text{for}\; x \neq x_j \\ \end{align*}
+\_form#115=88x20:$ \ell^N_i(x_j) = \delta_{ij} $
+\_form#116=185x24:\[ v_{ijk} = \ell^{N_x}_i(x) \ell^{N_y}_j(y) \ell^{N_z}_k(z) \]
+\_form#117=128x18:$f_{ijk} = f(x_i,y_j,z_k)$
+\_form#118=216x26:$ f(x,y,z) \approx \sum_{i,j,k=0}^{N_x,N_y,N_z} f_{ijk} v_{ijk} $
+\_form#119=351x138:\[ \operatorname{atan2}(y, x) = \begin{cases} \arctan\left(\frac y x\right) & \qquad x > 0 \\ \arctan\left(\frac y x\right) + \pi& \qquad y \ge 0 , x < 0 \\ \arctan\left(\frac y x\right) - \pi& \qquad y < 0 , x < 0 \\ +\frac{\pi}{2} & \qquad y > 0 , x = 0 \\ -\frac{\pi}{2} & \qquad y < 0 , x = 0 \\ \text{undefined} & \qquad y = 0, x = 0 \end{cases} \]
+\_form#120=164x60:\[ \begin{pmatrix} x\\ y\\ z \end{pmatrix} = \begin{pmatrix} r \, \sin \theta \, \cos \phi \\ r \, \sin \theta \, \sin \phi \\ r \, \cos \theta \end{pmatrix} \]
+\_form#121=7x11:$t$
+\_form#122=346x44:\[ s(t) = (1-2\left(\frac{\pi(t-T)}{\sigma}\right)^2) \, \exp( -\left(\frac{\pi(t-T)}{\sigma}\right)^2)\]
+\_form#123=13x11:$T$
+\_form#124=10x8:$\sigma$
+\_form#125=301x80:\[ s(t) = \begin{cases} 0& \text{for}~t \leq T\\ \sin^3\left(\frac{\pi (t-T)}{\sigma}\right)& \text{for}~T < t < T+\sigma\\ 0& \text{for}~t \geq T+\sigma \end{cases} \]
+\_form#126=106x18:\[ s(t) = \delta(t-T)\]
+\_form#127=250x50:\[ s(t) = \begin{cases} 0& \text{for}~t < T\\ \frac{t-T}{\sigma^2} \exp(-\frac{t-T}{\sigma})& \text{for}~t \geq T \end{cases} \]
+\_form#128=158x37:\[ s(t) = \exp(-\frac{(t-T)^2}{\sigma^2})\]

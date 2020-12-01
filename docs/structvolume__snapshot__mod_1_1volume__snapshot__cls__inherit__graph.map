@@ -1,0 +1,4 @@
+<map id="volume_snapshot_mod::volume_snapshot_cls" name="volume_snapshot_mod::volume_snapshot_cls">
+<area shape="rect" id="node1" title="A class which handles general volume&#45;snapshot related things." alt="" coords="9,5,165,47"/>
+<area shape="rect" id="node2" href="$structoutput__raw__mod_1_1output__raw__cls.html" title="A class which manges writing raw binary output." alt="" coords="5,95,168,136"/>
+</map>

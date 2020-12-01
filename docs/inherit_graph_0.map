@@ -1,0 +1,27 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$structchannel__mod_1_1channel__cls.html" title="A class which handles different channels in Ses3d&#45;NT to:" alt="" coords="5,588,181,615"/>
+<area shape="rect" id="node2" href="$structchannel__mod_1_1channel__exx.html" title="To record theta&#45;theta component strain." alt="" coords="231,5,411,32"/>
+<area shape="rect" id="node3" href="$structchannel__mod_1_1channel__exy.html" title="To record theta&#45;phi component strain." alt="" coords="231,56,411,83"/>
+<area shape="rect" id="node4" href="$structchannel__mod_1_1channel__exz.html" title="To record theta&#45;r component strain." alt="" coords="231,107,411,133"/>
+<area shape="rect" id="node5" href="$structchannel__mod_1_1channel__eyy.html" title="To record phi&#45;phi component strain." alt="" coords="231,157,411,184"/>
+<area shape="rect" id="node6" href="$structchannel__mod_1_1channel__eyz.html" title="To record phi&#45;r component strain." alt="" coords="231,208,411,235"/>
+<area shape="rect" id="node7" href="$structchannel__mod_1_1channel__ezz.html" title="To record r&#45;r component strain." alt="" coords="231,259,411,285"/>
+<area shape="rect" id="node8" href="$structchannel__mod_1_1channel__fx.html" title="To add or record theta&#45;component monopole force sources." alt="" coords="236,309,407,336"/>
+<area shape="rect" id="node9" href="$structchannel__mod_1_1channel__fy.html" title="To add or record phi&#45;component monopole force sources." alt="" coords="236,360,407,387"/>
+<area shape="rect" id="node10" href="$structchannel__mod_1_1channel__fz.html" title="To add or record radial&#45;component monopole forces." alt="" coords="236,411,407,437"/>
+<area shape="rect" id="node11" href="$structchannel__mod_1_1channel__mxx.html" title="To add or record theta&#45;theta&#45;direction dipole force sources." alt="" coords="229,461,413,488"/>
+<area shape="rect" id="node12" href="$structchannel__mod_1_1channel__mxy.html" title="To add or record theta&#45;phi&#45;direction dipole force sources." alt="" coords="229,512,413,539"/>
+<area shape="rect" id="node13" href="$structchannel__mod_1_1channel__mxz.html" title="To add or record theta&#45;r&#45;direction dipole force sources." alt="" coords="229,563,413,589"/>
+<area shape="rect" id="node14" href="$structchannel__mod_1_1channel__myy.html" title="To add or record phi&#45;phi&#45;direction dipole force sources." alt="" coords="229,613,413,640"/>
+<area shape="rect" id="node15" href="$structchannel__mod_1_1channel__myz.html" title="To add or record phi&#45;r&#45;direction dipole force sources." alt="" coords="229,664,413,691"/>
+<area shape="rect" id="node16" href="$structchannel__mod_1_1channel__mzz.html" title="To add or record rr&#45;direction dipole force sources." alt="" coords="229,715,413,741"/>
+<area shape="rect" id="node17" href="$structchannel__mod_1_1channel__n.html" title="To record the north&#45;component of the displacement velocity." alt="" coords="238,765,405,792"/>
+<area shape="rect" id="node18" href="$structchannel__mod_1_1channel__pressure.html" title="To record hydrostatic pressure rate." alt="" coords="245,817,397,858"/>
+<area shape="rect" id="node19" href="$structchannel__mod_1_1channel__rot__vx.html" title="To record the curls theta&#45;component of displacement velocity." alt="" coords="245,882,397,923"/>
+<area shape="rect" id="node20" href="$structchannel__mod_1_1channel__rot__vy.html" title="To record the curls phi&#45;component of displacement velocity." alt="" coords="245,947,397,989"/>
+<area shape="rect" id="node21" href="$structchannel__mod_1_1channel__rot__vz.html" title="To record the curls radial&#45;component of displacement velocity." alt="" coords="245,1013,397,1054"/>
+<area shape="rect" id="node22" href="$structchannel__mod_1_1channel__unknown.html" title="An object of class channel_unknown will be instantiated if something goes wrong e...." alt="" coords="245,1078,397,1119"/>
+<area shape="rect" id="node23" href="$structchannel__mod_1_1channel__vx.html" title="To record the theta&#45;component of the displacement velocity." alt="" coords="235,1144,408,1171"/>
+<area shape="rect" id="node24" href="$structchannel__mod_1_1channel__vy.html" title="To record the phi&#45;component of the displacement velocity." alt="" coords="235,1195,408,1221"/>
+<area shape="rect" id="node25" href="$structchannel__mod_1_1channel__vz.html" title="To record the radial&#45;component of the displacement velocity." alt="" coords="235,1245,408,1272"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$structpoint__mod_1_1point__cls.html" title="A class which handles points in Ses3d&#45;NT. It is used as a base&#45;class for receivers and sources." alt="" coords="5,31,148,57"/>
+<area shape="rect" id="node2" href="$structreceiver__mod_1_1receiver__cls.html" title="Class handling receivers." alt="" coords="196,5,375,32"/>
+<area shape="rect" id="node3" href="$structsource__mod_1_1source__cls.html" title="Class handling multiple sources ..." alt="" coords="203,56,367,83"/>
+</map>

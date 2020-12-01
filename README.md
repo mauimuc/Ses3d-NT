@@ -18,8 +18,10 @@ Andreas Fichtner’s deliberately puristic ses3d providing an user friendly and
 highly flexible framework for seismic wave propagation along with imaging
 capabilities.
 
-To install Ses3d-NT, please see the INSTALL.md file.
-Please visit the documentation for further information.
+Please visit the [documentation](https://mauimuc.github.io/Ses3d-NT) for
+further information. A tutorial and installation instructions may be found in
+__Related Pages__. Fortran coding examples are presented in the __Examples__
+section.
 
 Ses3d-NT is licensed under the terms of the GNU GPL version 3+. Legal stuff
 (copyright, licensing restrictions, etc.) can be found in the file LICENSE.
